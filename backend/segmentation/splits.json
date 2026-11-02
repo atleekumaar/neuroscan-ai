@@ -1,0 +1,78 @@
+{
+  "manifest_version": "1.0.0",
+  "created_at_utc": "2026-10-15T13:20:25.335273+00:00",
+  "random_seed": 42,
+  "split_protocol": "development_and_held_out_validation",
+  "statistical_safeguard": {
+    "cohort_size": 6,
+    "limitation": "The available dataset consists of 6 genuine BraTS cases. This cohort is suitable solely for engineering pipeline verification, baseline benchmarking, and smoke testing. It does NOT establish clinical generalization to unseen clinical populations or diverse imaging hardware.",
+    "leakage_prevention": "Strict patient-level partitioning verified. Zero patient ID or volume hash overlap."
+  },
+  "split_summary": {
+    "total_cases": 6,
+    "train_cases_count": 4,
+    "val_cases_count": 2,
+    "train_ratio": 0.667,
+    "val_ratio": 0.333
+  },
+  "splits": {
+    "train": [
+      {
+        "case_key": "case_003",
+        "patient_id": "BraTS-GLI-00003-000",
+        "mri_filename": "BraTS_Case_003_T1CE.nii.gz",
+        "mri_sha256": "a211cd8c26dd8d396341399d0a13fb888d5df6252bd9c5aa01156680e97c5577",
+        "seg_filename": "BraTS_Case_003_seg.nii.gz",
+        "seg_sha256": "de321e64c389e4f5088cabc0246dc2750546834580ce5236daa3c54c6036d33a",
+        "wt_volume_cm3": 99.239
+      },
+      {
+        "case_key": "case_004",
+        "patient_id": "BraTS-GLI-00005-000",
+        "mri_filename": "BraTS_Case_004_T1CE.nii.gz",
+        "mri_sha256": "2e074611e7388f7f7fefb5bbe39abb09f16f0dbeb0a35fbd661a0bbcd14d4b5a",
+        "seg_filename": "BraTS_Case_004_seg.nii.gz",
+        "seg_sha256": "ac15bcaf0027efd91f54e4f2222f59e64ae9f1448f78a52c60d8775618be6ecb",
+        "wt_volume_cm3": 124.783
+      },
+      {
+        "case_key": "case_005",
+        "patient_id": "BraTS-GLI-00006-000",
+        "mri_filename": "BraTS_Case_005_T1CE.nii.gz",
+        "mri_sha256": "20847fc162fe9193fb2d5a08e7b9009d16603eae268f769bf6d7bbffb0d79c42",
+        "seg_filename": "BraTS_Case_005_seg.nii.gz",
+        "seg_sha256": "c55d5122584967846d9c788cdb947645e8718aef6e9b5066993d2e0492a6e753",
+        "wt_volume_cm3": 137.911
+      },
+      {
+        "case_key": "case_006",
+        "patient_id": "BraTS-GLI-00008-000",
+        "mri_filename": "BraTS_Case_006_T1CE.nii.gz",
+        "mri_sha256": "3b92f907a585a13ae99b0c79f315d396a3dd4524f1a35001212509957e264abf",
+        "seg_filename": "BraTS_Case_006_seg.nii.gz",
+        "seg_sha256": "4c625564ea5e6a3b284accf14641fb0b858cea6703d7775e42005f5f718a846f",
+        "wt_volume_cm3": 18.462
+      }
+    ],
+    "val": [
+      {
+        "case_key": "case_001",
+        "patient_id": "BraTS-GLI-00000-000",
+        "mri_filename": "BraTS_Case_001_T1CE.nii.gz",
+        "mri_sha256": "735c27fd7a17b1702875837bcc843eedc88ced6ac2cb0e73cdf995e3e64ba82f",
+        "seg_filename": "BraTS_Case_001_seg.nii.gz",
+        "seg_sha256": "5f74bef54e7c4eda1a8c329c1f73ef863460294525b82e99ac587fe72f10f6c6",
+        "wt_volume_cm3": 57.305
+      },
+      {
+        "case_key": "case_002",
+        "patient_id": "BraTS-GLI-00002-000",
+        "mri_filename": "BraTS_Case_002_T1CE.nii.gz",
+        "mri_sha256": "4f49aa266cd907ce890bcc9c96f82534810f85bb98a76f8a092a5b529d3b6b6e",
+        "seg_filename": "BraTS_Case_002_seg.nii.gz",
+        "seg_sha256": "8de53bb074f62fa3cf5c7e3a327e6fb1496a41f9f5898b4b10f1228fde706a40",
+        "wt_volume_cm3": 190.594
+      }
+    ]
+  }
+}

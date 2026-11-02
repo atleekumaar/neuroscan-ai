@@ -1,0 +1,177 @@
+{
+  "status": "COMPLETED_SAFELY",
+  "clinical_label": "EXPERIMENTAL - NOT CLINICALLY VALIDATED",
+  "continuation_epochs_run": [
+    2,
+    3,
+    4
+  ],
+  "total_patches_trained": 54,
+  "device": "NVIDIA GeForce RTX 4050 Laptop GPU",
+  "peak_vram_mb": 780.0,
+  "min_available_ram_gb": 2.63,
+  "final_available_ram_gb": 2.57,
+  "final_gpu_temp_c": 51.0,
+  "epoch_results": [
+    {
+      "epoch": 2,
+      "mean_loss": 1.9087,
+      "mean_grad_norm": 1.9155,
+      "train_time_sec": 8.63,
+      "val_time_sec": 1.64,
+      "val_metrics": {
+        "WT": {
+          "dice": 0.1643,
+          "sensitivity": 0.9656,
+          "specificity": 0.8343,
+          "precision": 0.0898,
+          "pred_volume_cm3": 1598.002,
+          "gt_volume_cm3": 148.597,
+          "tp_voxels": 143489,
+          "fp_voxels": 1454513,
+          "fn_voxels": 5108,
+          "tn_voxels": 7324890
+        },
+        "TC": {
+          "dice": 0.0392,
+          "sensitivity": 0.2982,
+          "specificity": 0.9356,
+          "precision": 0.021,
+          "pred_volume_cm3": 584.627,
+          "gt_volume_cm3": 41.129,
+          "tp_voxels": 12264,
+          "fp_voxels": 572363,
+          "fn_voxels": 28865,
+          "tn_voxels": 8314508
+        },
+        "ET": {
+          "dice": 0.0325,
+          "sensitivity": 0.1358,
+          "specificity": 0.9745,
+          "precision": 0.0185,
+          "pred_volume_cm3": 231.25,
+          "gt_volume_cm3": 31.479,
+          "tp_voxels": 4274,
+          "fp_voxels": 226976,
+          "fn_voxels": 27205,
+          "tn_voxels": 8669545
+        },
+        "mean_dice": 0.0787
+      },
+      "checkpoint_name": "NeuroScan_Seg3D_UNet_Stage4B_Epoch2.pth",
+      "checkpoint_sha256": "f78e9e3cfee072991c25a69a7eb69f1b91f70db91f48dad1b7889347d5e22f01"
+    },
+    {
+      "epoch": 3,
+      "mean_loss": 1.8698,
+      "mean_grad_norm": 1.914,
+      "train_time_sec": 9.76,
+      "val_time_sec": 1.61,
+      "val_metrics": {
+        "WT": {
+          "dice": 0.1337,
+          "sensitivity": 0.9718,
+          "specificity": 0.7873,
+          "precision": 0.0718,
+          "pred_volume_cm3": 2011.796,
+          "gt_volume_cm3": 148.597,
+          "tp_voxels": 144406,
+          "fp_voxels": 1867390,
+          "fn_voxels": 4191,
+          "tn_voxels": 6912013
+        },
+        "TC": {
+          "dice": 0.026,
+          "sensitivity": 0.3199,
+          "specificity": 0.8921,
+          "precision": 0.0135,
+          "pred_volume_cm3": 972.309,
+          "gt_volume_cm3": 41.129,
+          "tp_voxels": 13156,
+          "fp_voxels": 959153,
+          "fn_voxels": 27973,
+          "tn_voxels": 7927718
+        },
+        "ET": {
+          "dice": 0.0269,
+          "sensitivity": 0.1723,
+          "specificity": 0.9588,
+          "precision": 0.0146,
+          "pred_volume_cm3": 372.045,
+          "gt_volume_cm3": 31.479,
+          "tp_voxels": 5423,
+          "fp_voxels": 366622,
+          "fn_voxels": 26056,
+          "tn_voxels": 8529899
+        },
+        "mean_dice": 0.0622
+      },
+      "checkpoint_name": "NeuroScan_Seg3D_UNet_Stage4B_Epoch3.pth",
+      "checkpoint_sha256": "ed26248c19a1c2b36891505923b61411eef4efab59ce397bb3f837e45b7dec9a"
+    },
+    {
+      "epoch": 4,
+      "mean_loss": 1.7598,
+      "mean_grad_norm": 1.889,
+      "train_time_sec": 7.88,
+      "val_time_sec": 1.54,
+      "val_metrics": {
+        "WT": {
+          "dice": 0.1513,
+          "sensitivity": 0.9668,
+          "specificity": 0.8169,
+          "precision": 0.0821,
+          "pred_volume_cm3": 1750.819,
+          "gt_volume_cm3": 148.597,
+          "tp_voxels": 143668,
+          "fp_voxels": 1607151,
+          "fn_voxels": 4929,
+          "tn_voxels": 7172252
+        },
+        "TC": {
+          "dice": 0.0316,
+          "sensitivity": 0.3039,
+          "specificity": 0.9169,
+          "precision": 0.0166,
+          "pred_volume_cm3": 750.883,
+          "gt_volume_cm3": 41.129,
+          "tp_voxels": 12501,
+          "fp_voxels": 738382,
+          "fn_voxels": 28628,
+          "tn_voxels": 8148489
+        },
+        "ET": {
+          "dice": 0.0349,
+          "sensitivity": 0.1966,
+          "specificity": 0.9643,
+          "precision": 0.0191,
+          "pred_volume_cm3": 323.621,
+          "gt_volume_cm3": 31.479,
+          "tp_voxels": 6188,
+          "fp_voxels": 317433,
+          "fn_voxels": 25291,
+          "tn_voxels": 8579088
+        },
+        "mean_dice": 0.0726
+      },
+      "checkpoint_name": "NeuroScan_Seg3D_UNet_Stage4B_Epoch4_Final.pth",
+      "checkpoint_sha256": "c8f20be381f4b2613f43caeedd4cb1df11bb7e001d3f9dabb0e76fba2636bf72"
+    }
+  ],
+  "initialization_checkpoint": "NeuroScan_Seg3D_UNet_LaptopSafe_Pilot.pth",
+  "initialization_checkpoint_sha256": "918f60686c276835657c8e2fdced565c3255cb0517c873781b1d4910fa544c29",
+  "final_checkpoint": "NeuroScan_Seg3D_UNet_Stage4B_Epoch4_Final.pth",
+  "final_checkpoint_sha256": "c8f20be381f4b2613f43caeedd4cb1df11bb7e001d3f9dabb0e76fba2636bf72",
+  "training_cohort": [
+    "BraTS-GLI-00324-000",
+    "BraTS-GLI-00442-000",
+    "BraTS-GLI-00456-000"
+  ],
+  "validation_cohort": [
+    "BraTS-GLI-00481-000"
+  ],
+  "locked_test_cohort": [
+    "BraTS-GLI-01012-000"
+  ],
+  "quarantine_verified": true
+}

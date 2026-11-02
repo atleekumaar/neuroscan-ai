@@ -233,11 +233,15 @@ def run_sliding_window_inference(
     inputs: torch.Tensor,
     roi_size: Tuple[int, int, int] = (64, 64, 64),
     overlap: float = 0.5,
-    device: torch.device = torch.device("cpu")
+    device: torch.device = torch.device("cpu"),
+    brain_mask: Optional[np.ndarray] = None,
+    min_fg_prob: Optional[float] = None
 ) -> np.ndarray:
     """
     Executes sliding window inference using MONAI when available or native patch engine.
     Returns argmax discrete mask numpy array of shape (H, W, D).
+    If brain_mask is provided, suppresses false positives outside the intracranial parenchyma.
+    If min_fg_prob is provided, suppresses predictions where total foreground probability is below threshold.
     """
     model.eval()
     inputs = inputs.to(device)
@@ -259,7 +263,20 @@ def run_sliding_window_inference(
     else:
         logits = native_sliding_window_inference(model, inputs, roi_size, overlap, device)
 
-    pred_mask = torch.argmax(logits, dim=1).squeeze(0).cpu().numpy().astype(np.uint8)
+    if min_fg_prob is not None and min_fg_prob > 0.0:
+        probs = torch.softmax(logits, dim=1).squeeze(0)  # (4, H, W, D)
+        fg_prob = (1.0 - probs[0]).cpu().numpy()
+        argmax_classes = torch.argmax(logits, dim=1).squeeze(0).cpu().numpy().astype(np.uint8)
+        pred_mask = np.where(fg_prob >= min_fg_prob, argmax_classes, 0).astype(np.uint8)
+    else:
+        pred_mask = torch.argmax(logits, dim=1).squeeze(0).cpu().numpy().astype(np.uint8)
+
+    if brain_mask is not None:
+        # Zero out predictions outside intracranial tissue mask
+        mask_bool = np.asarray(brain_mask > 0)
+        if mask_bool.shape == pred_mask.shape:
+            pred_mask = np.where(mask_bool, pred_mask, 0).astype(np.uint8)
+
     return pred_mask
 
 
@@ -363,3 +380,198 @@ def generate_volume_slice_pack(
         "initial_focus_slice": focus_slice,
         "has_tumor_in_plane": max_tumor_pixels > 0
     }
+
+
+# =========================================================================
+# Four-Channel Multimodal 3D Pipeline Extensions (Phase 5.11)
+# =========================================================================
+
+MODALITY_ORDER: Tuple[str, ...] = ("t1n", "t1c", "t2w", "t2f")
+
+
+def load_multimodal_study(
+    study_path_or_dict: Union[str, Path, Dict[str, Union[str, Path]]],
+    modality_order: Tuple[str, ...] = MODALITY_ORDER,
+    normalize: bool = True
+) -> Tuple[torch.Tensor, Optional[torch.Tensor], Dict[str, Any]]:
+    """
+    Loads and assembles a 4-channel multiparametric 3D MRI study into a standardized PyTorch tensor.
+    Consumes modalities strictly in the documented canonical order: t1n, t1c, t2w, t2f.
+    Validates spatial dimension, affine alignment, and finite intensities across all sequences.
+
+    Returns:
+      - image_tensor: Float32 Tensor of shape (1, 4, H, W, D)
+      - seg_tensor: Optional Int64 Tensor of shape (1, 1, H, W, D) if 'seg' is available
+      - metadata: Dict with affine, zooms, shapes, and modality paths
+    """
+    if isinstance(study_path_or_dict, (str, Path)):
+        study_dir = Path(study_path_or_dict)
+        if not study_dir.is_dir():
+            raise NotADirectoryError(f"Study path is not a directory: {study_dir}")
+        files = list(study_dir.glob("*.nii*"))
+        file_map: Dict[str, Path] = {}
+        for f in files:
+            name_lower = f.name.lower()
+            for m in list(modality_order) + ["seg"]:
+                if f"-{m}." in name_lower or f"_{m}." in name_lower or f"_{m.upper()}." in f.name:
+                    file_map[m] = f
+    elif isinstance(study_path_or_dict, dict):
+        file_map = {k: Path(v) if v else None for k, v in study_path_or_dict.items()}
+    else:
+        raise TypeError(f"Expected directory path or dict of modality paths, got {type(study_path_or_dict).__name__}")
+
+    # Verify presence of all required 4 channels
+    missing = [m for m in modality_order if m not in file_map or file_map[m] is None or not file_map[m].exists()]
+    if missing:
+        raise ValueError(f"Missing required modalities in study: {missing} (required order: {modality_order})")
+
+    ref_shape = None
+    ref_affine = None
+    ref_zooms = None
+    channels_data: List[np.ndarray] = []
+
+    for mod in modality_order:
+        fpath = file_map[mod]
+        vol = load_nifti_file(fpath)
+        # vol.data shape: (C, H, W, D) where C=1
+        channel_slice = vol.data[0]
+
+        if not np.all(np.isfinite(channel_slice)):
+            raise ValueError(f"Non-finite intensities detected in sequence {mod} at {fpath}")
+
+        if ref_shape is None:
+            ref_shape = channel_slice.shape
+            ref_affine = vol.affine
+            ref_zooms = vol.voxel_spacing
+        else:
+            if channel_slice.shape != ref_shape:
+                raise ValueError(f"Dimension mismatch in {mod}: {channel_slice.shape} != reference {ref_shape}")
+            if not np.allclose(vol.affine, ref_affine, atol=1e-3):
+                raise ValueError(f"Affine alignment mismatch in sequence {mod}")
+
+        if normalize:
+            channel_slice = normalize_intensity(channel_slice)
+
+        channels_data.append(channel_slice)
+
+    # Stack strictly in modality_order -> shape (4, H, W, D)
+    stacked_image = np.stack(channels_data, axis=0).astype(np.float32)
+    image_tensor = torch.from_numpy(stacked_image).unsqueeze(0)  # Shape (1, 4, H, W, D)
+
+    # Load ground truth segmentation if present
+    seg_tensor = None
+    seg_labels = None
+    if "seg" in file_map and file_map["seg"] and file_map["seg"].exists():
+        seg_vol = load_nifti_file(file_map["seg"])
+        seg_data = seg_vol.data[0].astype(np.int64)
+        if seg_data.shape != ref_shape:
+            raise ValueError(f"Segmentation shape mismatch: {seg_data.shape} != image shape {ref_shape}")
+        # Remap legacy BraTS label 4 to 3 (Enhancing Tumor) if present
+        seg_data[seg_data == 4] = 3
+        seg_labels = sorted(list(np.unique(seg_data)))
+        seg_tensor = torch.from_numpy(seg_data).unsqueeze(0).unsqueeze(0)  # Shape (1, 1, H, W, D)
+
+    metadata = {
+        "modality_order": list(modality_order),
+        "dimensions": list(ref_shape),
+        "voxel_spacing_mm": list(ref_zooms),
+        "affine": ref_affine.tolist(),
+        "file_paths": {k: str(v.as_posix()) if v else None for k, v in file_map.items()},
+        "seg_unique_labels": seg_labels
+    }
+
+    return image_tensor, seg_tensor, metadata
+
+
+def extract_3d_patches(
+    image: torch.Tensor,
+    seg: Optional[torch.Tensor] = None,
+    patch_size: Tuple[int, int, int] = (64, 64, 64),
+    stride: Optional[Tuple[int, int, int]] = None,
+    max_patches: Optional[int] = None
+) -> Tuple[torch.Tensor, Optional[torch.Tensor]]:
+    """
+    Extracts regular 3D spatial patches from volume tensors for batch training or evaluation.
+    Inputs:
+      - image: Tensor of shape (B, C, H, W, D)
+      - seg: Optional Tensor of shape (B, 1, H, W, D)
+    Returns:
+      - image_patches: Tensor of shape (N, C, ph, pw, pd)
+      - seg_patches: Optional Tensor of shape (N, 1, ph, pw, pd)
+    """
+    b, c, h, w, d = image.shape
+    ph, pw, pd = patch_size
+
+    if stride is None:
+        stride = (ph // 2, pw // 2, pd // 2)
+
+    sh, sw, sd = stride
+    h_starts = list(range(0, max(1, h - ph + 1), max(1, sh)))
+    if h_starts[-1] + ph < h:
+        h_starts.append(h - ph)
+
+    w_starts = list(range(0, max(1, w - pw + 1), max(1, sw)))
+    if w_starts[-1] + pw < w:
+        w_starts.append(w - pw)
+
+    d_starts = list(range(0, max(1, d - pd + 1), max(1, sd)))
+    if d_starts[-1] + pd < d:
+        d_starts.append(d - pd)
+
+    img_patch_list: List[torch.Tensor] = []
+    seg_patch_list: List[torch.Tensor] = []
+
+    for bi in range(b):
+        for hs in h_starts:
+            for ws in w_starts:
+                for ds in d_starts:
+                    img_p = image[bi:bi+1, :, hs:hs+ph, ws:ws+pw, ds:ds+pd]
+                    img_patch_list.append(img_p)
+                    if seg is not None:
+                        seg_p = seg[bi:bi+1, :, hs:hs+ph, ws:ws+pw, ds:ds+pd]
+                        seg_patch_list.append(seg_p)
+
+                    if max_patches and len(img_patch_list) >= max_patches:
+                        break
+                if max_patches and len(img_patch_list) >= max_patches:
+                    break
+            if max_patches and len(img_patch_list) >= max_patches:
+                break
+        if max_patches and len(img_patch_list) >= max_patches:
+            break
+
+    image_patches = torch.cat(img_patch_list, dim=0) if img_patch_list else torch.empty((0, c, ph, pw, pd))
+    seg_patches = torch.cat(seg_patch_list, dim=0) if (seg is not None and seg_patch_list) else None
+
+    return image_patches, seg_patches
+
+
+def predict_multimodal_study(
+    model: torch.nn.Module,
+    image_tensor: torch.Tensor,
+    roi_size: Tuple[int, int, int] = (64, 64, 64),
+    overlap: float = 0.5,
+    device: torch.device = torch.device("cpu")
+) -> torch.Tensor:
+    """
+    Executes sliding-window 3D volumetric inference on a 4-channel input tensor.
+    Input image_tensor: (1, 4, H, W, D)
+    Returns discrete predicted segmentation mask: (1, 1, H, W, D) with classes in {0, 1, 2, 3}.
+    """
+    model.eval()
+    if image_tensor.ndim != 5 or image_tensor.shape[1] != 4:
+        raise ValueError(f"Expected 4-channel 5D tensor (1, 4, H, W, D), got {image_tensor.shape}")
+
+    with torch.no_grad():
+        inputs = image_tensor.to(device)
+        logits = native_sliding_window_inference(
+            model=model,
+            inputs=inputs,
+            roi_size=roi_size,
+            overlap=overlap,
+            device=device
+        )
+        pred_classes = torch.argmax(logits, dim=1, keepdim=True).to(torch.int64)
+
+    return pred_classes
+

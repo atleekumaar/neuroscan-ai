@@ -119,7 +119,7 @@ def build_segmentation_model(
     """
     if MONAI_AVAILABLE:
         try:
-            return MonaiUNet(
+            model = MonaiUNet(
                 spatial_dims=spatial_dims,
                 in_channels=in_channels,
                 out_channels=out_channels,
@@ -130,18 +130,61 @@ def build_segmentation_model(
                 dropout=dropout
             )
         except Exception:
-            return NativeBrainTumorUNet3D(
+            model = NativeBrainTumorUNet3D(
                 in_channels=in_channels,
                 out_channels=out_channels,
                 channels=channels,
                 dropout_prob=dropout
             )
-    return NativeBrainTumorUNet3D(
-        in_channels=in_channels,
-        out_channels=out_channels,
-        channels=channels,
-        dropout_prob=dropout
+    else:
+        model = NativeBrainTumorUNet3D(
+            in_channels=in_channels,
+            out_channels=out_channels,
+            channels=channels,
+            dropout_prob=dropout
+        )
+    model.in_channels = in_channels
+    model.out_channels = out_channels
+    return model
+
+
+from dataclasses import dataclass
+
+@dataclass
+class FourChannelUNetConfig:
+    """
+    Configuration contract for multimodal 4-channel 3D U-Net segmentation.
+    Enforces the canonical BraTS input modality sequence:
+      Channel 0: T1-native (t1n)
+      Channel 1: T1-contrast-enhanced (t1c)
+      Channel 2: T2-weighted (t2w)
+      Channel 3: T2-FLAIR (t2f)
+    """
+    in_channels: int = 4
+    out_channels: int = 4  # Background(0), Necrotic Core(1), Edema(2), Enhancing Tumor(3)
+    modality_order: Tuple[str, ...] = ("t1n", "t1c", "t2w", "t2f")
+    spatial_dims: int = 3
+    channels: Tuple[int, ...] = (16, 32, 64, 128, 256)
+    dropout: float = 0.2
+    patch_size: Tuple[int, int, int] = (64, 64, 64)
+    overlap: float = 0.5
+
+
+def build_four_channel_unet(config: Optional[FourChannelUNetConfig] = None) -> nn.Module:
+    """
+    Constructs a 4-channel 3D U-Net configured strictly according to the multimodal contract.
+    Preserves all existing single-channel models by providing an explicit separate factory.
+    """
+    if config is None:
+        config = FourChannelUNetConfig()
+    return build_segmentation_model(
+        in_channels=config.in_channels,
+        out_channels=config.out_channels,
+        spatial_dims=config.spatial_dims,
+        channels=config.channels,
+        dropout=config.dropout
     )
+
 
 
 # Standard BraTS Subregion Definitions
@@ -219,12 +262,22 @@ def load_segmentation_model(
             state_dict = checkpoint
             training_meta = {}
 
-        # Handle potential DataParallel / DDP module prefix
+        # Handle potential DataParallel / DDP module prefix (only strip leading 'module.')
         cleaned_state_dict = {}
         for k, v in state_dict.items():
-            key = k.replace("module.", "")
+            key = k[7:] if k.startswith("module.") else k
             cleaned_state_dict[key] = v
 
+        # Auto-detect in_channels from metadata or state_dict tensor geometry
+        detected_in_channels = training_meta.get("in_channels")
+        if detected_in_channels is None:
+            for k in ["inc.conv.0.weight", "model.0.conv.0.conv.weight", "conv.0.weight"]:
+                if k in cleaned_state_dict and hasattr(cleaned_state_dict[k], "shape"):
+                    detected_in_channels = cleaned_state_dict[k].shape[1]
+                    break
+        actual_in_channels = int(detected_in_channels) if detected_in_channels is not None else in_channels
+
+        model = build_segmentation_model(in_channels=actual_in_channels, out_channels=out_channels).to(device)
         model.load_state_dict(cleaned_state_dict, strict=False)
         model.eval()
 
@@ -232,7 +285,7 @@ def load_segmentation_model(
             "model_name": "NeuroScan 3D U-Net (BraTS Benchmark)",
             "framework": "PyTorch / MONAI",
             "spatial_dims": 3,
-            "in_channels": in_channels,
+            "in_channels": actual_in_channels,
             "out_channels": out_channels,
             "subregions": ["Whole Tumor (WT)", "Tumor Core (TC)", "Enhancing Tumor (ET)"],
             "checkpoint_loaded": True,

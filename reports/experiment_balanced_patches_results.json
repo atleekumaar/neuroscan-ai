@@ -1,0 +1,102 @@
+{
+  "experiment_id": "Exp1_BalancedPatches_1to2",
+  "candidate_checkpoint": "NeuroScan_Seg3D_UNet_Phase5_Exp1_BalancedPatches.pth",
+  "candidate_sha256": "0e3a312153fb55d4d538564fb55f9d2e377b5305924cbcc7e139d889c375c268",
+  "candidate_metrics": {
+    "WT": {
+      "dice": 0.1198,
+      "sensitivity": 0.9298,
+      "specificity": 0.7699,
+      "precision": 0.064,
+      "pred_volume_cm3": 2158.377,
+      "gt_volume_cm3": 148.597,
+      "tp_voxels": 138162,
+      "fp_voxels": 2020215,
+      "fn_voxels": 10435,
+      "tn_voxels": 6759188
+    },
+    "TC": {
+      "dice": 0.0425,
+      "sensitivity": 0.4849,
+      "specificity": 0.9012,
+      "precision": 0.0222,
+      "pred_volume_cm3": 897.547,
+      "gt_volume_cm3": 41.129,
+      "tp_voxels": 19944,
+      "fp_voxels": 877603,
+      "fn_voxels": 21185,
+      "tn_voxels": 8009268
+    },
+    "ET": {
+      "dice": 0.0272,
+      "sensitivity": 0.1716,
+      "specificity": 0.9595,
+      "precision": 0.0148,
+      "pred_volume_cm3": 366.056,
+      "gt_volume_cm3": 31.479,
+      "tp_voxels": 5402,
+      "fp_voxels": 360654,
+      "fn_voxels": 26077,
+      "tn_voxels": 8535867
+    },
+    "mean_dice": 0.0632
+  },
+  "baseline_metrics": {
+    "WT": {
+      "dice": 0.1089,
+      "sensitivity": 0.9739,
+      "precision": 0.0577,
+      "pred_volume_cm3": 2510.167,
+      "fp_voxels": 2365455
+    },
+    "TC": {
+      "dice": 0.0322,
+      "sensitivity": 0.3682,
+      "precision": 0.0168,
+      "pred_volume_cm3": 898.65,
+      "fp_voxels": 883508
+    },
+    "ET": {
+      "dice": 0.0282,
+      "sensitivity": 0.1989,
+      "precision": 0.0152,
+      "pred_volume_cm3": 412.057,
+      "fp_voxels": 405795
+    },
+    "mean_dice": 0.0564
+  },
+  "training_log": [
+    {
+      "epoch": 1,
+      "loss": 2.4987,
+      "grad_norm": 2.6622,
+      "time_sec": 10.95
+    },
+    {
+      "epoch": 2,
+      "loss": 2.3284,
+      "grad_norm": 2.455,
+      "time_sec": 10.42
+    },
+    {
+      "epoch": 3,
+      "loss": 2.1982,
+      "grad_norm": 2.2101,
+      "time_sec": 11.88
+    },
+    {
+      "epoch": 4,
+      "loss": 2.1713,
+      "grad_norm": 2.0182,
+      "time_sec": 10.37
+    },
+    {
+      "epoch": 5,
+      "loss": 2.1348,
+      "grad_norm": 2.1091,
+      "time_sec": 10.93
+    }
+  ],
+  "training_time_sec": 54.54,
+  "val_time_sec": 121.95
+}

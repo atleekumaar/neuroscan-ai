@@ -70,6 +70,15 @@ data/
 dataset/
 datasets/
 !backend/segmentation/data/
+backend/segmentation/data/BraTS-GLI-*
+backend/segmentation/data/pilot/
+backend/segmentation/data/downloads/
+backend/segmentation/data/**/.staging*
+backend/segmentation/data/**/.tmp*
+.staging*
+*.synapseConfig
+.synapseConfig
+*.token
 
 # Jupyter
 .ipynb_checkpoints/

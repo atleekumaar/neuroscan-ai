@@ -1,0 +1,666 @@
+{
+  "audit_version": "1.0.0",
+  "timestamp_utc": "2026-10-15T13:20:25.163142+00:00",
+  "dataset_directory": "C:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data",
+  "total_cases_found": 6,
+  "valid_cases": 6,
+  "invalid_cases": 0,
+  "critical_errors": [],
+  "all_valid": true,
+  "cases": {
+    "case_001": {
+      "case_key": "case_001",
+      "patient_id": "BraTS-GLI-00000-000",
+      "is_valid": true,
+      "errors": [],
+      "warnings": [],
+      "files": {
+        "mri": {
+          "path": "backend/segmentation/data/BraTS_Case_001_T1CE.nii.gz",
+          "filename": "BraTS_Case_001_T1CE.nii.gz",
+          "size_bytes": 2643179,
+          "sha256": "735c27fd7a17b1702875837bcc843eedc88ced6ac2cb0e73cdf995e3e64ba82f"
+        },
+        "seg": {
+          "path": "backend/segmentation/data/BraTS_Case_001_seg.nii.gz",
+          "filename": "BraTS_Case_001_seg.nii.gz",
+          "size_bytes": 49934,
+          "sha256": "5f74bef54e7c4eda1a8c329c1f73ef863460294525b82e99ac587fe72f10f6c6"
+        }
+      },
+      "geometry": {
+        "dimensions": [
+          240,
+          240,
+          155
+        ],
+        "voxel_spacing_mm": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "physical_dimensions_mm": [
+          240.0,
+          240.0,
+          155.0
+        ],
+        "voxel_volume_mm3": 1.0,
+        "orientation": "LPS",
+        "affine_match": true,
+        "affine_matrix": [
+          [
+            -1.0,
+            -0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            -0.0,
+            -1.0,
+            -0.0,
+            239.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "mri_intensity": {
+        "min": 0.0,
+        "max": 12343.0,
+        "mean": 345.51,
+        "std": 846.79,
+        "p01": 673.0,
+        "p99": 5574.0,
+        "finite_values_only": true,
+        "is_empty": false
+      },
+      "segmentation_labels": {
+        "raw_labels_present": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "raw_label_counts": {
+          "0": 8870695,
+          "1": 11738,
+          "2": 12836,
+          "3": 32731
+        },
+        "label_4_remapped_to_3": false,
+        "label_4_voxel_count": 0,
+        "voxel_counts": {
+          "BG": 8870695,
+          "NCR": 11738,
+          "ED": 12836,
+          "ET": 32731,
+          "WT": 57305,
+          "TC": 44469
+        },
+        "volume_cm3": {
+          "NCR": 11.738,
+          "ED": 12.836,
+          "ET": 32.731,
+          "WT": 57.305,
+          "TC": 44.469
+        },
+        "is_empty": false
+      }
+    },
+    "case_002": {
+      "case_key": "case_002",
+      "patient_id": "BraTS-GLI-00002-000",
+      "is_valid": true,
+      "errors": [],
+      "warnings": [],
+      "files": {
+        "mri": {
+          "path": "backend/segmentation/data/BraTS_Case_002_T1CE.nii.gz",
+          "filename": "BraTS_Case_002_T1CE.nii.gz",
+          "size_bytes": 2486326,
+          "sha256": "4f49aa266cd907ce890bcc9c96f82534810f85bb98a76f8a092a5b529d3b6b6e"
+        },
+        "seg": {
+          "path": "backend/segmentation/data/BraTS_Case_002_seg.nii.gz",
+          "filename": "BraTS_Case_002_seg.nii.gz",
+          "size_bytes": 58320,
+          "sha256": "8de53bb074f62fa3cf5c7e3a327e6fb1496a41f9f5898b4b10f1228fde706a40"
+        }
+      },
+      "geometry": {
+        "dimensions": [
+          240,
+          240,
+          155
+        ],
+        "voxel_spacing_mm": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "physical_dimensions_mm": [
+          240.0,
+          240.0,
+          155.0
+        ],
+        "voxel_volume_mm3": 1.0,
+        "orientation": "LPS",
+        "affine_match": true,
+        "affine_matrix": [
+          [
+            -1.0,
+            -0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            -0.0,
+            -1.0,
+            -0.0,
+            239.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "mri_intensity": {
+        "min": 0.0,
+        "max": 12137.0,
+        "mean": 296.81,
+        "std": 752.66,
+        "p01": 525.0,
+        "p99": 4863.0,
+        "finite_values_only": true,
+        "is_empty": false
+      },
+      "segmentation_labels": {
+        "raw_labels_present": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "raw_label_counts": {
+          "0": 8737406,
+          "1": 11248,
+          "2": 155695,
+          "3": 23651
+        },
+        "label_4_remapped_to_3": false,
+        "label_4_voxel_count": 0,
+        "voxel_counts": {
+          "BG": 8737406,
+          "NCR": 11248,
+          "ED": 155695,
+          "ET": 23651,
+          "WT": 190594,
+          "TC": 34899
+        },
+        "volume_cm3": {
+          "NCR": 11.248,
+          "ED": 155.695,
+          "ET": 23.651,
+          "WT": 190.594,
+          "TC": 34.899
+        },
+        "is_empty": false
+      }
+    },
+    "case_003": {
+      "case_key": "case_003",
+      "patient_id": "BraTS-GLI-00003-000",
+      "is_valid": true,
+      "errors": [],
+      "warnings": [],
+      "files": {
+        "mri": {
+          "path": "backend/segmentation/data/BraTS_Case_003_T1CE.nii.gz",
+          "filename": "BraTS_Case_003_T1CE.nii.gz",
+          "size_bytes": 2834759,
+          "sha256": "a211cd8c26dd8d396341399d0a13fb888d5df6252bd9c5aa01156680e97c5577"
+        },
+        "seg": {
+          "path": "backend/segmentation/data/BraTS_Case_003_seg.nii.gz",
+          "filename": "BraTS_Case_003_seg.nii.gz",
+          "size_bytes": 53177,
+          "sha256": "de321e64c389e4f5088cabc0246dc2750546834580ce5236daa3c54c6036d33a"
+        }
+      },
+      "geometry": {
+        "dimensions": [
+          240,
+          240,
+          155
+        ],
+        "voxel_spacing_mm": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "physical_dimensions_mm": [
+          240.0,
+          240.0,
+          155.0
+        ],
+        "voxel_volume_mm3": 1.0,
+        "orientation": "LPS",
+        "affine_match": true,
+        "affine_matrix": [
+          [
+            -1.0,
+            -0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            -0.0,
+            -1.0,
+            -0.0,
+            239.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "mri_intensity": {
+        "min": 0.0,
+        "max": 11451.0,
+        "mean": 369.11,
+        "std": 844.36,
+        "p01": 672.0,
+        "p99": 5004.0,
+        "finite_values_only": true,
+        "is_empty": false
+      },
+      "segmentation_labels": {
+        "raw_labels_present": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "raw_label_counts": {
+          "0": 8828761,
+          "1": 17214,
+          "2": 57773,
+          "3": 24252
+        },
+        "label_4_remapped_to_3": false,
+        "label_4_voxel_count": 0,
+        "voxel_counts": {
+          "BG": 8828761,
+          "NCR": 17214,
+          "ED": 57773,
+          "ET": 24252,
+          "WT": 99239,
+          "TC": 41466
+        },
+        "volume_cm3": {
+          "NCR": 17.214,
+          "ED": 57.773,
+          "ET": 24.252,
+          "WT": 99.239,
+          "TC": 41.466
+        },
+        "is_empty": false
+      }
+    },
+    "case_004": {
+      "case_key": "case_004",
+      "patient_id": "BraTS-GLI-00005-000",
+      "is_valid": true,
+      "errors": [],
+      "warnings": [],
+      "files": {
+        "mri": {
+          "path": "backend/segmentation/data/BraTS_Case_004_T1CE.nii.gz",
+          "filename": "BraTS_Case_004_T1CE.nii.gz",
+          "size_bytes": 2323871,
+          "sha256": "2e074611e7388f7f7fefb5bbe39abb09f16f0dbeb0a35fbd661a0bbcd14d4b5a"
+        },
+        "seg": {
+          "path": "backend/segmentation/data/BraTS_Case_004_seg.nii.gz",
+          "filename": "BraTS_Case_004_seg.nii.gz",
+          "size_bytes": 56537,
+          "sha256": "ac15bcaf0027efd91f54e4f2222f59e64ae9f1448f78a52c60d8775618be6ecb"
+        }
+      },
+      "geometry": {
+        "dimensions": [
+          240,
+          240,
+          155
+        ],
+        "voxel_spacing_mm": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "physical_dimensions_mm": [
+          240.0,
+          240.0,
+          155.0
+        ],
+        "voxel_volume_mm3": 1.0,
+        "orientation": "LPS",
+        "affine_match": true,
+        "affine_matrix": [
+          [
+            -1.0,
+            -0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            -0.0,
+            -1.0,
+            -0.0,
+            239.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "mri_intensity": {
+        "min": 0.0,
+        "max": 12931.0,
+        "mean": 288.65,
+        "std": 778.19,
+        "p01": 651.0,
+        "p99": 6072.0,
+        "finite_values_only": true,
+        "is_empty": false
+      },
+      "segmentation_labels": {
+        "raw_labels_present": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "raw_label_counts": {
+          "0": 8803217,
+          "1": 24187,
+          "2": 76742,
+          "3": 23854
+        },
+        "label_4_remapped_to_3": false,
+        "label_4_voxel_count": 0,
+        "voxel_counts": {
+          "BG": 8803217,
+          "NCR": 24187,
+          "ED": 76742,
+          "ET": 23854,
+          "WT": 124783,
+          "TC": 48041
+        },
+        "volume_cm3": {
+          "NCR": 24.187,
+          "ED": 76.742,
+          "ET": 23.854,
+          "WT": 124.783,
+          "TC": 48.041
+        },
+        "is_empty": false
+      }
+    },
+    "case_005": {
+      "case_key": "case_005",
+      "patient_id": "BraTS-GLI-00006-000",
+      "is_valid": true,
+      "errors": [],
+      "warnings": [],
+      "files": {
+        "mri": {
+          "path": "backend/segmentation/data/BraTS_Case_005_T1CE.nii.gz",
+          "filename": "BraTS_Case_005_T1CE.nii.gz",
+          "size_bytes": 2705917,
+          "sha256": "20847fc162fe9193fb2d5a08e7b9009d16603eae268f769bf6d7bbffb0d79c42"
+        },
+        "seg": {
+          "path": "backend/segmentation/data/BraTS_Case_005_seg.nii.gz",
+          "filename": "BraTS_Case_005_seg.nii.gz",
+          "size_bytes": 57896,
+          "sha256": "c55d5122584967846d9c788cdb947645e8718aef6e9b5066993d2e0492a6e753"
+        }
+      },
+      "geometry": {
+        "dimensions": [
+          240,
+          240,
+          155
+        ],
+        "voxel_spacing_mm": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "physical_dimensions_mm": [
+          240.0,
+          240.0,
+          155.0
+        ],
+        "voxel_volume_mm3": 1.0,
+        "orientation": "LPS",
+        "affine_match": true,
+        "affine_matrix": [
+          [
+            -1.0,
+            -0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            -0.0,
+            -1.0,
+            -0.0,
+            239.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "mri_intensity": {
+        "min": 0.0,
+        "max": 15956.0,
+        "mean": 365.71,
+        "std": 898.31,
+        "p01": 622.99,
+        "p99": 6483.0,
+        "finite_values_only": true,
+        "is_empty": false
+      },
+      "segmentation_labels": {
+        "raw_labels_present": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "raw_label_counts": {
+          "0": 8790089,
+          "1": 25506,
+          "2": 85957,
+          "3": 26448
+        },
+        "label_4_remapped_to_3": false,
+        "label_4_voxel_count": 0,
+        "voxel_counts": {
+          "BG": 8790089,
+          "NCR": 25506,
+          "ED": 85957,
+          "ET": 26448,
+          "WT": 137911,
+          "TC": 51954
+        },
+        "volume_cm3": {
+          "NCR": 25.506,
+          "ED": 85.957,
+          "ET": 26.448,
+          "WT": 137.911,
+          "TC": 51.954
+        },
+        "is_empty": false
+      }
+    },
+    "case_006": {
+      "case_key": "case_006",
+      "patient_id": "BraTS-GLI-00008-000",
+      "is_valid": true,
+      "errors": [],
+      "warnings": [],
+      "files": {
+        "mri": {
+          "path": "backend/segmentation/data/BraTS_Case_006_T1CE.nii.gz",
+          "filename": "BraTS_Case_006_T1CE.nii.gz",
+          "size_bytes": 2639147,
+          "sha256": "3b92f907a585a13ae99b0c79f315d396a3dd4524f1a35001212509957e264abf"
+        },
+        "seg": {
+          "path": "backend/segmentation/data/BraTS_Case_006_seg.nii.gz",
+          "filename": "BraTS_Case_006_seg.nii.gz",
+          "size_bytes": 38174,
+          "sha256": "4c625564ea5e6a3b284accf14641fb0b858cea6703d7775e42005f5f718a846f"
+        }
+      },
+      "geometry": {
+        "dimensions": [
+          240,
+          240,
+          155
+        ],
+        "voxel_spacing_mm": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "physical_dimensions_mm": [
+          240.0,
+          240.0,
+          155.0
+        ],
+        "voxel_volume_mm3": 1.0,
+        "orientation": "LPS",
+        "affine_match": true,
+        "affine_matrix": [
+          [
+            -1.0,
+            -0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            -0.0,
+            -1.0,
+            -0.0,
+            239.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "mri_intensity": {
+        "min": 0.0,
+        "max": 17805.0,
+        "mean": 469.44,
+        "std": 1168.65,
+        "p01": 527.0,
+        "p99": 6666.0,
+        "finite_values_only": true,
+        "is_empty": false
+      },
+      "segmentation_labels": {
+        "raw_labels_present": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "raw_label_counts": {
+          "0": 8909538,
+          "1": 16,
+          "2": 18135,
+          "3": 311
+        },
+        "label_4_remapped_to_3": false,
+        "label_4_voxel_count": 0,
+        "voxel_counts": {
+          "BG": 8909538,
+          "NCR": 16,
+          "ED": 18135,
+          "ET": 311,
+          "WT": 18462,
+          "TC": 327
+        },
+        "volume_cm3": {
+          "NCR": 0.016,
+          "ED": 18.135,
+          "ET": 0.311,
+          "WT": 18.462,
+          "TC": 0.327
+        },
+        "is_empty": false
+      }
+    }
+  }
+}

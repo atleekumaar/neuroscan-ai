@@ -1,0 +1,70 @@
+{
+  "status": "COMPLETED_SAFELY",
+  "clinical_label": "EXPERIMENTAL - NOT CLINICALLY VALIDATED",
+  "device": "NVIDIA GeForce RTX 4050 Laptop GPU",
+  "total_vram_mb": 6140.5,
+  "peak_vram_mb": 642.0,
+  "min_available_ram_gb": 3.08,
+  "final_available_ram_gb": 2.9,
+  "final_gpu_temp_c": 50.0,
+  "elapsed_train_sec": 1.79,
+  "elapsed_val_sec": 3.02,
+  "mean_train_loss": 2.0576,
+  "mean_grad_norm": 2.1099,
+  "validation_metrics": {
+    "WT": {
+      "dice": 0.1456,
+      "sensitivity": 0.9363,
+      "specificity": 0.8151,
+      "precision": 0.079,
+      "pred_volume_cm3": 1762.044,
+      "gt_volume_cm3": 148.597,
+      "tp_voxels": 139129,
+      "fp_voxels": 1622915,
+      "fn_voxels": 9468,
+      "tn_voxels": 7156488
+    },
+    "TC": {
+      "dice": 0.0394,
+      "sensitivity": 0.3665,
+      "specificity": 0.9203,
+      "precision": 0.0208,
+      "pred_volume_cm3": 723.393,
+      "gt_volume_cm3": 41.129,
+      "tp_voxels": 15073,
+      "fp_voxels": 708320,
+      "fn_voxels": 26056,
+      "tn_voxels": 8178551
+    },
+    "ET": {
+      "dice": 0.03,
+      "sensitivity": 0.1393,
+      "specificity": 0.9712,
+      "precision": 0.0168,
+      "pred_volume_cm3": 260.663,
+      "gt_volume_cm3": 31.479,
+      "tp_voxels": 4386,
+      "fp_voxels": 256277,
+      "fn_voxels": 27093,
+      "tn_voxels": 8640244
+    },
+    "mean_dice": 0.0717
+  },
+  "checkpoint_path": "models/NeuroScan_Seg3D_UNet_LaptopSafe_Pilot.pth",
+  "checkpoint_sha256": "918f60686c276835657c8e2fdced565c3255cb0517c873781b1d4910fa544c29",
+  "checkpoint_size_mb": 55.15,
+  "initialization_checkpoint": "NeuroScan_Seg3D_UNet_Phase5_Exp1_BalancedPatches.pth",
+  "initialization_checkpoint_sha256": "0e3a312153fb55d4d538564fb55f9d2e377b5305924cbcc7e139d889c375c268",
+  "training_cohort": [
+    "BraTS-GLI-00324-000",
+    "BraTS-GLI-00442-000",
+    "BraTS-GLI-00456-000"
+  ],
+  "validation_cohort": [
+    "BraTS-GLI-00481-000"
+  ],
+  "locked_test_cohort": [
+    "BraTS-GLI-01012-000"
+  ],
+  "quarantine_verified": true
+}

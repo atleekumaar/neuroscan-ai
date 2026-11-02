@@ -1,0 +1,866 @@
+{
+  "manifest_version": "2.1.0-phase5.2",
+  "created_at_utc": "2026-10-16 21:18:52Z",
+  "updated_at_utc": "2026-10-19 21:25:20Z",
+  "dataset_standard": "ASNR-MICCAI BraTS 2023 Adult Glioma Multi-Parametric MRI Protocol",
+  "authoritative_source": "Synapse.org (Challenge syn51156910 / syn51514106)",
+  "governing_license": "BraTS Data Use Agreement (DUA) - Non-Commercial Scientific Research",
+  "summary": {
+    "total_studies_audited": 11,
+    "eligible_multimodal_studies": 5,
+    "rejected_studies": 6,
+    "rejection_summary": {
+      "missing_multimodal_sequences": 6,
+      "corrupted_files": 6,
+      "label_errors": 0
+    },
+    "pilot_expansion_target": {
+      "target_cohort_size": 100,
+      "target_split_counts": {
+        "train": 70,
+        "val": 15,
+        "locked_test": 15
+      },
+      "status": "HALTED - Pending Synapse DUA Authentication"
+    }
+  },
+  "audited_local_studies": [
+    {
+      "patient_id": "BraTS_Case_001",
+      "is_eligible": false,
+      "status": "REJECTED",
+      "gatekeeper_checks": {
+        "modality_completeness": false,
+        "file_integrity": false,
+        "spatial_geometry": false,
+        "rigid_registration": false,
+        "label_alphabet": true,
+        "deduplication": true,
+        "cryptographic_hashing": false
+      },
+      "errors": [
+        "Missing required modalities: ['t1n', 't2w', 't2f']"
+      ],
+      "warnings": [],
+      "file_paths": {
+        "t1n": null,
+        "t1c": "C:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/BraTS_Case_001_T1CE.nii.gz",
+        "t2w": null,
+        "t2f": null,
+        "seg": "C:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/BraTS_Case_001_seg.nii.gz"
+      },
+      "file_sizes_bytes": {
+        "t1c": 2643179,
+        "seg": 49934
+      },
+      "file_sha256": {
+        "t1c": "735c27fd7a17b1702875837bcc843eedc88ced6ac2cb0e73cdf995e3e64ba82f",
+        "seg": "5f74bef54e7c4eda1a8c329c1f73ef863460294525b82e99ac587fe72f10f6c6"
+      },
+      "geometry": {},
+      "label_semantics": {
+        "unique_labels": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "contains_legacy_label_4": false,
+        "voxel_counts": {
+          "WT": 57305,
+          "TC": 44469,
+          "ET": 32731,
+          "ED": 12836,
+          "NCR": 11738
+        },
+        "volume_cm3": {
+          "WT": 57.305,
+          "TC": 44.469,
+          "ET": 32.731,
+          "ED": 12.836,
+          "NCR": 11.738
+        }
+      }
+    },
+    {
+      "patient_id": "BraTS_Case_002",
+      "is_eligible": false,
+      "status": "REJECTED",
+      "gatekeeper_checks": {
+        "modality_completeness": false,
+        "file_integrity": false,
+        "spatial_geometry": false,
+        "rigid_registration": false,
+        "label_alphabet": true,
+        "deduplication": true,
+        "cryptographic_hashing": false
+      },
+      "errors": [
+        "Missing required modalities: ['t1n', 't2w', 't2f']"
+      ],
+      "warnings": [],
+      "file_paths": {
+        "t1n": null,
+        "t1c": "C:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/BraTS_Case_002_T1CE.nii.gz",
+        "t2w": null,
+        "t2f": null,
+        "seg": "C:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/BraTS_Case_002_seg.nii.gz"
+      },
+      "file_sizes_bytes": {
+        "t1c": 2486326,
+        "seg": 58320
+      },
+      "file_sha256": {
+        "t1c": "4f49aa266cd907ce890bcc9c96f82534810f85bb98a76f8a092a5b529d3b6b6e",
+        "seg": "8de53bb074f62fa3cf5c7e3a327e6fb1496a41f9f5898b4b10f1228fde706a40"
+      },
+      "geometry": {},
+      "label_semantics": {
+        "unique_labels": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "contains_legacy_label_4": false,
+        "voxel_counts": {
+          "WT": 190594,
+          "TC": 34899,
+          "ET": 23651,
+          "ED": 155695,
+          "NCR": 11248
+        },
+        "volume_cm3": {
+          "WT": 190.594,
+          "TC": 34.899,
+          "ET": 23.651,
+          "ED": 155.695,
+          "NCR": 11.248
+        }
+      }
+    },
+    {
+      "patient_id": "BraTS_Case_003",
+      "is_eligible": false,
+      "status": "REJECTED",
+      "gatekeeper_checks": {
+        "modality_completeness": false,
+        "file_integrity": false,
+        "spatial_geometry": false,
+        "rigid_registration": false,
+        "label_alphabet": true,
+        "deduplication": true,
+        "cryptographic_hashing": false
+      },
+      "errors": [
+        "Missing required modalities: ['t1n', 't2w', 't2f']"
+      ],
+      "warnings": [],
+      "file_paths": {
+        "t1n": null,
+        "t1c": "C:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/BraTS_Case_003_T1CE.nii.gz",
+        "t2w": null,
+        "t2f": null,
+        "seg": "C:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/BraTS_Case_003_seg.nii.gz"
+      },
+      "file_sizes_bytes": {
+        "t1c": 2834759,
+        "seg": 53177
+      },
+      "file_sha256": {
+        "t1c": "a211cd8c26dd8d396341399d0a13fb888d5df6252bd9c5aa01156680e97c5577",
+        "seg": "de321e64c389e4f5088cabc0246dc2750546834580ce5236daa3c54c6036d33a"
+      },
+      "geometry": {},
+      "label_semantics": {
+        "unique_labels": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "contains_legacy_label_4": false,
+        "voxel_counts": {
+          "WT": 99239,
+          "TC": 41466,
+          "ET": 24252,
+          "ED": 57773,
+          "NCR": 17214
+        },
+        "volume_cm3": {
+          "WT": 99.239,
+          "TC": 41.466,
+          "ET": 24.252,
+          "ED": 57.773,
+          "NCR": 17.214
+        }
+      }
+    },
+    {
+      "patient_id": "BraTS_Case_004",
+      "is_eligible": false,
+      "status": "REJECTED",
+      "gatekeeper_checks": {
+        "modality_completeness": false,
+        "file_integrity": false,
+        "spatial_geometry": false,
+        "rigid_registration": false,
+        "label_alphabet": true,
+        "deduplication": true,
+        "cryptographic_hashing": false
+      },
+      "errors": [
+        "Missing required modalities: ['t1n', 't2w', 't2f']"
+      ],
+      "warnings": [],
+      "file_paths": {
+        "t1n": null,
+        "t1c": "C:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/BraTS_Case_004_T1CE.nii.gz",
+        "t2w": null,
+        "t2f": null,
+        "seg": "C:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/BraTS_Case_004_seg.nii.gz"
+      },
+      "file_sizes_bytes": {
+        "t1c": 2323871,
+        "seg": 56537
+      },
+      "file_sha256": {
+        "t1c": "2e074611e7388f7f7fefb5bbe39abb09f16f0dbeb0a35fbd661a0bbcd14d4b5a",
+        "seg": "ac15bcaf0027efd91f54e4f2222f59e64ae9f1448f78a52c60d8775618be6ecb"
+      },
+      "geometry": {},
+      "label_semantics": {
+        "unique_labels": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "contains_legacy_label_4": false,
+        "voxel_counts": {
+          "WT": 124783,
+          "TC": 48041,
+          "ET": 23854,
+          "ED": 76742,
+          "NCR": 24187
+        },
+        "volume_cm3": {
+          "WT": 124.783,
+          "TC": 48.041,
+          "ET": 23.854,
+          "ED": 76.742,
+          "NCR": 24.187
+        }
+      }
+    },
+    {
+      "patient_id": "BraTS_Case_005",
+      "is_eligible": false,
+      "status": "REJECTED",
+      "gatekeeper_checks": {
+        "modality_completeness": false,
+        "file_integrity": false,
+        "spatial_geometry": false,
+        "rigid_registration": false,
+        "label_alphabet": true,
+        "deduplication": true,
+        "cryptographic_hashing": false
+      },
+      "errors": [
+        "Missing required modalities: ['t1n', 't2w', 't2f']"
+      ],
+      "warnings": [],
+      "file_paths": {
+        "t1n": null,
+        "t1c": "C:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/BraTS_Case_005_T1CE.nii.gz",
+        "t2w": null,
+        "t2f": null,
+        "seg": "C:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/BraTS_Case_005_seg.nii.gz"
+      },
+      "file_sizes_bytes": {
+        "t1c": 2705917,
+        "seg": 57896
+      },
+      "file_sha256": {
+        "t1c": "20847fc162fe9193fb2d5a08e7b9009d16603eae268f769bf6d7bbffb0d79c42",
+        "seg": "c55d5122584967846d9c788cdb947645e8718aef6e9b5066993d2e0492a6e753"
+      },
+      "geometry": {},
+      "label_semantics": {
+        "unique_labels": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "contains_legacy_label_4": false,
+        "voxel_counts": {
+          "WT": 137911,
+          "TC": 51954,
+          "ET": 26448,
+          "ED": 85957,
+          "NCR": 25506
+        },
+        "volume_cm3": {
+          "WT": 137.911,
+          "TC": 51.954,
+          "ET": 26.448,
+          "ED": 85.957,
+          "NCR": 25.506
+        }
+      }
+    },
+    {
+      "patient_id": "BraTS_Case_006",
+      "is_eligible": false,
+      "status": "REJECTED",
+      "gatekeeper_checks": {
+        "modality_completeness": false,
+        "file_integrity": false,
+        "spatial_geometry": false,
+        "rigid_registration": false,
+        "label_alphabet": true,
+        "deduplication": true,
+        "cryptographic_hashing": false
+      },
+      "errors": [
+        "Missing required modalities: ['t1n', 't2w', 't2f']"
+      ],
+      "warnings": [],
+      "file_paths": {
+        "t1n": null,
+        "t1c": "C:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/BraTS_Case_006_T1CE.nii.gz",
+        "t2w": null,
+        "t2f": null,
+        "seg": "C:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/BraTS_Case_006_seg.nii.gz"
+      },
+      "file_sizes_bytes": {
+        "t1c": 2639147,
+        "seg": 38174
+      },
+      "file_sha256": {
+        "t1c": "3b92f907a585a13ae99b0c79f315d396a3dd4524f1a35001212509957e264abf",
+        "seg": "4c625564ea5e6a3b284accf14641fb0b858cea6703d7775e42005f5f718a846f"
+      },
+      "geometry": {},
+      "label_semantics": {
+        "unique_labels": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "contains_legacy_label_4": false,
+        "voxel_counts": {
+          "WT": 18462,
+          "TC": 327,
+          "ET": 311,
+          "ED": 18135,
+          "NCR": 16
+        },
+        "volume_cm3": {
+          "WT": 18.462,
+          "TC": 0.327,
+          "ET": 0.311,
+          "ED": 18.135,
+          "NCR": 0.016
+        }
+      }
+    },
+    {
+      "patient_id": "BraTS-GLI-00324-000",
+      "is_eligible": true,
+      "status": "ELIGIBLE",
+      "gatekeeper_checks": {
+        "modality_completeness": true,
+        "file_integrity": true,
+        "spatial_geometry": true,
+        "rigid_registration": true,
+        "label_alphabet": true,
+        "deduplication": true,
+        "cryptographic_hashing": true
+      },
+      "errors": [],
+      "warnings": [],
+      "file_paths": {
+        "t1n": "c:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/pilot/BraTS-GLI-00324-000/BraTS-GLI-00324-000-t1n.nii.gz",
+        "t1c": "c:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/pilot/BraTS-GLI-00324-000/BraTS-GLI-00324-000-t1c.nii.gz",
+        "t2w": "c:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/pilot/BraTS-GLI-00324-000/BraTS-GLI-00324-000-t2w.nii.gz",
+        "t2f": "c:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/pilot/BraTS-GLI-00324-000/BraTS-GLI-00324-000-t2f.nii.gz",
+        "seg": "c:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/pilot/BraTS-GLI-00324-000/BraTS-GLI-00324-000-seg.nii.gz"
+      },
+      "file_sizes_bytes": {
+        "t1n": 2224941,
+        "t1c": 2318322,
+        "t2w": 2414614,
+        "t2f": 2159810,
+        "seg": 52662
+      },
+      "file_sha256": {
+        "t1n": "8c743efd394fcb9162effed940d897289d35ee2d768c8b2bf8262106b96720d7",
+        "t1c": "5a181107695c438445df994741c4ef4304edef5b1c033cf64770215f1d6b6715",
+        "t2w": "8a0b4810ce6e5307a529db6ded36221d2125888b54efad8b238dbcfd25b7051a",
+        "t2f": "8132c8260ad51369a3cf104c10c80b4f5e64543344b12e65e4a0fe5fd74c53b5",
+        "seg": "c3237d5037e472785f5562529a98607bfb3a98f13d19a27e665ee14e0adb2bf2"
+      },
+      "geometry": {
+        "dimensions": [
+          240,
+          240,
+          155
+        ],
+        "voxel_spacing_mm": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "affine_matrix": [
+          [
+            -1.0,
+            -0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            -0.0,
+            -1.0,
+            -0.0,
+            239.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "orientation": "LPS"
+      },
+      "label_semantics": {
+        "unique_labels": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "contains_legacy_label_4": false,
+        "voxel_counts": {
+          "WT": 83418,
+          "TC": 7635,
+          "ET": 6047,
+          "ED": 75783,
+          "NCR": 1588
+        },
+        "volume_cm3": {
+          "WT": 83.418,
+          "TC": 7.635,
+          "ET": 6.047,
+          "ED": 75.783,
+          "NCR": 1.588
+        }
+      }
+    },
+    {
+      "patient_id": "BraTS-GLI-00442-000",
+      "is_eligible": true,
+      "status": "ELIGIBLE",
+      "gatekeeper_checks": {
+        "modality_completeness": true,
+        "file_integrity": true,
+        "spatial_geometry": true,
+        "rigid_registration": true,
+        "label_alphabet": true,
+        "deduplication": true,
+        "cryptographic_hashing": true
+      },
+      "errors": [],
+      "warnings": [],
+      "file_paths": {
+        "t1n": "c:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/pilot/BraTS-GLI-00442-000/BraTS-GLI-00442-000-t1n.nii.gz",
+        "t1c": "c:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/pilot/BraTS-GLI-00442-000/BraTS-GLI-00442-000-t1c.nii.gz",
+        "t2w": "c:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/pilot/BraTS-GLI-00442-000/BraTS-GLI-00442-000-t2w.nii.gz",
+        "t2f": "c:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/pilot/BraTS-GLI-00442-000/BraTS-GLI-00442-000-t2f.nii.gz",
+        "seg": "c:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/pilot/BraTS-GLI-00442-000/BraTS-GLI-00442-000-seg.nii.gz"
+      },
+      "file_sizes_bytes": {
+        "t1n": 2307910,
+        "t1c": 2306319,
+        "t2w": 2209790,
+        "t2f": 1984133,
+        "seg": 47665
+      },
+      "file_sha256": {
+        "t1n": "b48b8d19a6694c943c1bba89b5cc0262644ea3ac11e72c1f4ba1cc5a62d80436",
+        "t1c": "772179b9a6c5f5742bde7a6a828fea1ece42e13c2f8b27ef3982118ed0691b1e",
+        "t2w": "d1cf0ca996a635cd6df37a6f1ad5f1a3db3266d8f9e562cbd39ae89cba35b07f",
+        "t2f": "d11a9be7f18f876af82faa6744662f384fee3049298d8ac8d4221f45a36090d1",
+        "seg": "5d4a238fc5d5c4cdaf064a8264cecf2a02c1ed0f5a760473fdc5776250461346"
+      },
+      "geometry": {
+        "dimensions": [
+          240,
+          240,
+          155
+        ],
+        "voxel_spacing_mm": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "affine_matrix": [
+          [
+            -1.0,
+            0.0,
+            0.0,
+            -0.0
+          ],
+          [
+            0.0,
+            -1.0,
+            0.0,
+            239.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "orientation": "LPS"
+      },
+      "label_semantics": {
+        "unique_labels": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "contains_legacy_label_4": false,
+        "voxel_counts": {
+          "WT": 44986,
+          "TC": 31041,
+          "ET": 12998,
+          "ED": 13945,
+          "NCR": 18043
+        },
+        "volume_cm3": {
+          "WT": 44.986,
+          "TC": 31.041,
+          "ET": 12.998,
+          "ED": 13.945,
+          "NCR": 18.043
+        }
+      }
+    },
+    {
+      "patient_id": "BraTS-GLI-00456-000",
+      "is_eligible": true,
+      "status": "ELIGIBLE",
+      "gatekeeper_checks": {
+        "modality_completeness": true,
+        "file_integrity": true,
+        "spatial_geometry": true,
+        "rigid_registration": true,
+        "label_alphabet": true,
+        "deduplication": true,
+        "cryptographic_hashing": true
+      },
+      "errors": [],
+      "warnings": [],
+      "file_paths": {
+        "t1n": "c:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/pilot/BraTS-GLI-00456-000/BraTS-GLI-00456-000-t1n.nii.gz",
+        "t1c": "c:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/pilot/BraTS-GLI-00456-000/BraTS-GLI-00456-000-t1c.nii.gz",
+        "t2w": "c:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/pilot/BraTS-GLI-00456-000/BraTS-GLI-00456-000-t2w.nii.gz",
+        "t2f": "c:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/pilot/BraTS-GLI-00456-000/BraTS-GLI-00456-000-t2f.nii.gz",
+        "seg": "c:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/pilot/BraTS-GLI-00456-000/BraTS-GLI-00456-000-seg.nii.gz"
+      },
+      "file_sizes_bytes": {
+        "t1n": 2014663,
+        "t1c": 2101737,
+        "t2w": 2223561,
+        "t2f": 2117153,
+        "seg": 64418
+      },
+      "file_sha256": {
+        "t1n": "4fb0dd74d038dfb18f99cf1dabdabaf93316b4f8fc61dbfb805cad8d89a85754",
+        "t1c": "5e7e2bd790f1eabefbc44842584e846be282577fdaeb898673d206512d2456ca",
+        "t2w": "bbf1c27c37880e3c7a709b8c42ce977bfff2050ec6ae5289555cf9a6c60f0195",
+        "t2f": "cd45903cd5881d1f23a7763bf2878fb446f03d53ff732ec1a1ddd59c202c0128",
+        "seg": "06f8788351c8d36de45585aedcdbfa9cfb78ea18d369984fcac4ab3a2c22d508"
+      },
+      "geometry": {
+        "dimensions": [
+          240,
+          240,
+          155
+        ],
+        "voxel_spacing_mm": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "affine_matrix": [
+          [
+            -1.0,
+            0.0,
+            0.0,
+            -0.0
+          ],
+          [
+            0.0,
+            -1.0,
+            0.0,
+            239.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "orientation": "LPS"
+      },
+      "label_semantics": {
+        "unique_labels": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "contains_legacy_label_4": false,
+        "voxel_counts": {
+          "WT": 192199,
+          "TC": 41587,
+          "ET": 29216,
+          "ED": 150612,
+          "NCR": 12371
+        },
+        "volume_cm3": {
+          "WT": 192.199,
+          "TC": 41.587,
+          "ET": 29.216,
+          "ED": 150.612,
+          "NCR": 12.371
+        }
+      }
+    },
+    {
+      "patient_id": "BraTS-GLI-01012-000",
+      "is_eligible": true,
+      "status": "ELIGIBLE",
+      "gatekeeper_checks": {
+        "modality_completeness": true,
+        "file_integrity": true,
+        "spatial_geometry": true,
+        "rigid_registration": true,
+        "label_alphabet": true,
+        "deduplication": true,
+        "cryptographic_hashing": true
+      },
+      "errors": [],
+      "warnings": [],
+      "file_paths": {
+        "t1n": "c:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/pilot/BraTS-GLI-01012-000/BraTS-GLI-01012-000-t1n.nii.gz",
+        "t1c": "c:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/pilot/BraTS-GLI-01012-000/BraTS-GLI-01012-000-t1c.nii.gz",
+        "t2w": "c:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/pilot/BraTS-GLI-01012-000/BraTS-GLI-01012-000-t2w.nii.gz",
+        "t2f": "c:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/pilot/BraTS-GLI-01012-000/BraTS-GLI-01012-000-t2f.nii.gz",
+        "seg": "c:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/pilot/BraTS-GLI-01012-000/BraTS-GLI-01012-000-seg.nii.gz"
+      },
+      "file_sizes_bytes": {
+        "t1n": 2608794,
+        "t1c": 2693490,
+        "t2w": 2582180,
+        "t2f": 2303949,
+        "seg": 62048
+      },
+      "file_sha256": {
+        "t1n": "b573410c261e8af18a8757bb5b7284454bfc38ed7fffac24c100b505aa809fd4",
+        "t1c": "4ca07702efbb8edce13f1a03def61c56025f9b27cf5a9ccbaf88cc97cb1e6c2e",
+        "t2w": "9f3e0645f67e920b4b79ec5a30aa8d91fbe4c00005f9c7d465bd5bf1bc1c26a4",
+        "t2f": "7615ce1e4f81f17d2cd6bb0bd813e639864026f15a3a0c4380cd972f508fbdad",
+        "seg": "d3c4f64f208af3ea7c13f35c4b6ba5f79855f6377f45b85727540ea17fcd8a8b"
+      },
+      "geometry": {
+        "dimensions": [
+          240,
+          240,
+          155
+        ],
+        "voxel_spacing_mm": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "affine_matrix": [
+          [
+            -1.0,
+            0.0,
+            0.0,
+            -0.0
+          ],
+          [
+            0.0,
+            -1.0,
+            0.0,
+            239.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "orientation": "LPS"
+      },
+      "label_semantics": {
+        "unique_labels": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "contains_legacy_label_4": false,
+        "voxel_counts": {
+          "WT": 125934,
+          "TC": 69151,
+          "ET": 63270,
+          "ED": 56783,
+          "NCR": 5881
+        },
+        "volume_cm3": {
+          "WT": 125.934,
+          "TC": 69.151,
+          "ET": 63.27,
+          "ED": 56.783,
+          "NCR": 5.881
+        }
+      }
+    },
+    {
+      "patient_id": "BraTS-GLI-00481-000",
+      "is_eligible": true,
+      "status": "ELIGIBLE",
+      "gatekeeper_checks": {
+        "modality_completeness": true,
+        "file_integrity": true,
+        "spatial_geometry": true,
+        "rigid_registration": true,
+        "label_alphabet": true,
+        "deduplication": true,
+        "cryptographic_hashing": true
+      },
+      "errors": [],
+      "warnings": [],
+      "file_paths": {
+        "t1n": "c:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/pilot/BraTS-GLI-00481-000/BraTS-GLI-00481-000-t1n.nii.gz",
+        "t1c": "c:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/pilot/BraTS-GLI-00481-000/BraTS-GLI-00481-000-t1c.nii.gz",
+        "t2w": "c:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/pilot/BraTS-GLI-00481-000/BraTS-GLI-00481-000-t2w.nii.gz",
+        "t2f": "c:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/pilot/BraTS-GLI-00481-000/BraTS-GLI-00481-000-t2f.nii.gz",
+        "seg": "c:/Users/atuls/OneDrive/Desktop/NeuroScan AI/backend/segmentation/data/pilot/BraTS-GLI-00481-000/BraTS-GLI-00481-000-seg.nii.gz"
+      },
+      "file_sizes_bytes": {
+        "t1n": 2319689,
+        "t1c": 2665383,
+        "t2w": 2477442,
+        "t2f": 2582049,
+        "seg": 61334
+      },
+      "file_sha256": {
+        "t1n": "5d44d1ce038dbdd9092eb78bff1cad12cba41c0482d5ddabb1e803788dca6145",
+        "t1c": "b181c2f6e6caa82d043a97ea2351db6c276ed26ba39ff412a258f61c4e2e681b",
+        "t2w": "78b09769e6d4313ec87b5d07164b87da3421e5aae72c0c73f4905febc70bf4a1",
+        "t2f": "ae79d3995f67a07146471e870b354bc3eb78c02a5ddb6b8cec3f71b4f8625411",
+        "seg": "0e55ba4234be9c07a69ed38b28a8f5b739e613f1d2cfa999a7ebdbe252d83e9f"
+      },
+      "geometry": {
+        "dimensions": [
+          240,
+          240,
+          155
+        ],
+        "voxel_spacing_mm": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "affine_matrix": [
+          [
+            -1.0,
+            -0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            -0.0,
+            -1.0,
+            -0.0,
+            239.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "orientation": "LPS"
+      },
+      "label_semantics": {
+        "unique_labels": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "contains_legacy_label_4": false,
+        "voxel_counts": {
+          "WT": 148597,
+          "TC": 41129,
+          "ET": 31479,
+          "ED": 107468,
+          "NCR": 9650
+        },
+        "volume_cm3": {
+          "WT": 148.597,
+          "TC": 41.129,
+          "ET": 31.479,
+          "ED": 107.468,
+          "NCR": 9.65
+        }
+      }
+    }
+  ]
+}

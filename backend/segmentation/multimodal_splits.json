@@ -1,0 +1,99 @@
+{
+  "manifest_version": "2.0.0-phase5.11",
+  "created_at_utc": "2026-10-20T03:05:00Z",
+  "random_seed": 42,
+  "split_protocol": "patient_level_stratified_triple_split",
+  "statistical_safeguard": {
+    "cohort_size": 5,
+    "warning": "CRITICAL STATISTICAL LIMITATION",
+    "limitation": "The available multimodal dataset consists of 5 genuine BraTS 2023 studies. This cohort is suitable solely for engineering pipeline development, integration testing, and dry-run verification. It does NOT establish statistical power, clinical validity, or generalization to unseen patient populations.",
+    "leakage_prevention": "Strict patient-level partitioning verified. Zero patient ID or volume hash overlap across splits."
+  },
+  "split_summary": {
+    "total_cases": 5,
+    "train_cases_count": 3,
+    "val_cases_count": 1,
+    "test_cases_count": 1,
+    "train_ratio": 0.60,
+    "val_ratio": 0.20,
+    "test_ratio": 0.20
+  },
+  "splits": {
+    "train": [
+      {
+        "patient_id": "BraTS-GLI-00324-000",
+        "relative_dir": "pilot/BraTS-GLI-00324-000",
+        "modalities": {
+          "t1n": "BraTS-GLI-00324-000-t1n.nii.gz",
+          "t1c": "BraTS-GLI-00324-000-t1c.nii.gz",
+          "t2w": "BraTS-GLI-00324-000-t2w.nii.gz",
+          "t2f": "BraTS-GLI-00324-000-t2f.nii.gz",
+          "seg": "BraTS-GLI-00324-000-seg.nii.gz"
+        },
+        "wt_volume_cm3": 148.06,
+        "tc_volume_cm3": 61.27,
+        "et_volume_cm3": 28.32
+      },
+      {
+        "patient_id": "BraTS-GLI-00442-000",
+        "relative_dir": "pilot/BraTS-GLI-00442-000",
+        "modalities": {
+          "t1n": "BraTS-GLI-00442-000-t1n.nii.gz",
+          "t1c": "BraTS-GLI-00442-000-t1c.nii.gz",
+          "t2w": "BraTS-GLI-00442-000-t2w.nii.gz",
+          "t2f": "BraTS-GLI-00442-000-t2f.nii.gz",
+          "seg": "BraTS-GLI-00442-000-seg.nii.gz"
+        },
+        "wt_volume_cm3": 122.95,
+        "tc_volume_cm3": 49.78,
+        "et_volume_cm3": 25.46
+      },
+      {
+        "patient_id": "BraTS-GLI-00456-000",
+        "relative_dir": "pilot/BraTS-GLI-00456-000",
+        "modalities": {
+          "t1n": "BraTS-GLI-00456-000-t1n.nii.gz",
+          "t1c": "BraTS-GLI-00456-000-t1c.nii.gz",
+          "t2w": "BraTS-GLI-00456-000-t2w.nii.gz",
+          "t2f": "BraTS-GLI-00456-000-t2f.nii.gz",
+          "seg": "BraTS-GLI-00456-000-seg.nii.gz"
+        },
+        "wt_volume_cm3": 192.20,
+        "tc_volume_cm3": 41.59,
+        "et_volume_cm3": 29.22
+      }
+    ],
+    "val": [
+      {
+        "patient_id": "BraTS-GLI-00481-000",
+        "relative_dir": "pilot/BraTS-GLI-00481-000",
+        "modalities": {
+          "t1n": "BraTS-GLI-00481-000-t1n.nii.gz",
+          "t1c": "BraTS-GLI-00481-000-t1c.nii.gz",
+          "t2w": "BraTS-GLI-00481-000-t2w.nii.gz",
+          "t2f": "BraTS-GLI-00481-000-t2f.nii.gz",
+          "seg": "BraTS-GLI-00481-000-seg.nii.gz"
+        },
+        "wt_volume_cm3": 173.84,
+        "tc_volume_cm3": 72.41,
+        "et_volume_cm3": 38.90
+      }
+    ],
+    "locked_test": [
+      {
+        "patient_id": "BraTS-GLI-01012-000",
+        "relative_dir": "pilot/BraTS-GLI-01012-000",
+        "modalities": {
+          "t1n": "BraTS-GLI-01012-000-t1n.nii.gz",
+          "t1c": "BraTS-GLI-01012-000-t1c.nii.gz",
+          "t2w": "BraTS-GLI-01012-000-t2w.nii.gz",
+          "t2f": "BraTS-GLI-01012-000-t2f.nii.gz",
+          "seg": "BraTS-GLI-01012-000-seg.nii.gz"
+        },
+        "wt_volume_cm3": 165.12,
+        "tc_volume_cm3": 58.19,
+        "et_volume_cm3": 31.05
+      }
+    ]
+  }
+}

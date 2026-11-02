@@ -1,0 +1,294 @@
+{
+  "benchmark_title": "NEUROSCAN AI \u2014 3D Volumetric Segmentation Baseline Evaluation",
+  "created_at_utc": "2026-10-20T08:53:50.965237+00:00",
+  "git_commit_sha": "2567ba22c73235eb581d9844e8599b7a2759ee88",
+  "checkpoint": {
+    "path": "C:/Users/atuls/AppData/Local/Temp/pytest-of-atuls/pytest-158/test_dynamic_evaluation_metada1/test_4ch.pth",
+    "filename": "test_4ch.pth",
+    "sha256": "f874fa975b8f7478e8fa14d81d7e9081255a52750d5e2ca01b7b57f84942d58f",
+    "size_bytes": 19274588,
+    "architecture": "3D U-Net (BraTS Benchmark)",
+    "epochs_trained": 4,
+    "best_epoch": "N/A",
+    "initial_checkpoint_dice": null,
+    "input_channels": 4
+  },
+  "dataset": {
+    "data_directory": "C:/Users/atuls/AppData/Local/Temp/pytest-of-atuls/pytest-158/test_dynamic_evaluation_metada1/data",
+    "data_manifest_sha256": "06849dd8abf85fd312022611df70b38099b31b09fd51b589408bc6a8740beec6",
+    "splits": {
+      "splits_file": "C:/Users/atuls/AppData/Local/Temp/pytest-of-atuls/pytest-158/test_dynamic_evaluation_metada1/splits.json",
+      "splits_sha256": "795224d4465145f2f7f99c4ade84e25d68e72164811a870a22bd3e990993aec5",
+      "random_seed": null,
+      "split_protocol": null,
+      "statistical_safeguard": {}
+    },
+    "split_evaluated": "val"
+  },
+  "inference_configuration": {
+    "mode": "full_volume_sliding_window",
+    "patch_size": [
+      32,
+      32,
+      32
+    ],
+    "overlap": 0.25,
+    "input_channels": 4,
+    "input_semantics": "4-channel mpMRI (T1, T1-CE, T2, FLAIR) or 4-channel slot alignment",
+    "min_fg_prob": null,
+    "apply_brain_mask": true,
+    "intensity_normalization": "Non-zero z-score standardization per channel"
+  },
+  "system_environment": {
+    "device_type": "cuda",
+    "device_name": "NVIDIA GeForce RTX 4050 Laptop GPU",
+    "cuda_available": true,
+    "cuda_version": "12.4",
+    "torch_version": "2.6.0+cu124",
+    "monai_version": "1.4.0",
+    "nibabel_version": "5.4.2",
+    "platform": "Windows-11-10.0.26200-SP0"
+  },
+  "evaluation_summary": {
+    "total_cases_queued": 1,
+    "valid_cases_evaluated": 1,
+    "skipped_cases_count": 0,
+    "overall_mean_dice": 0.0,
+    "overall_median_dice": 0.0,
+    "mean_inference_time_sec": 0.02
+  },
+  "aggregate_metrics": {
+    "total_cases_evaluated": 1,
+    "overall_mean_dice": 0.0,
+    "overall_median_dice": 0.0,
+    "subregions": {
+      "WT": {
+        "dice": {
+          "mean": 0.0,
+          "std": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "iou": {
+          "mean": 0.0,
+          "std": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "sensitivity": {
+          "mean": 1.0,
+          "std": 0.0,
+          "median": 1.0,
+          "min": 1.0,
+          "max": 1.0
+        },
+        "precision": {
+          "mean": 0.0,
+          "std": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "dice_mean": 0.0,
+        "dice_std": 0.0,
+        "dice_median": 0.0,
+        "iou_mean": 0.0
+      },
+      "TC": {
+        "dice": {
+          "mean": 0.0,
+          "std": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "iou": {
+          "mean": 0.0,
+          "std": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "sensitivity": {
+          "mean": 1.0,
+          "std": 0.0,
+          "median": 1.0,
+          "min": 1.0,
+          "max": 1.0
+        },
+        "precision": {
+          "mean": 0.0,
+          "std": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "dice_mean": 0.0,
+        "dice_std": 0.0,
+        "dice_median": 0.0,
+        "iou_mean": 0.0
+      },
+      "ET": {
+        "dice": {
+          "mean": 0.0,
+          "std": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "iou": {
+          "mean": 0.0,
+          "std": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "sensitivity": {
+          "mean": 1.0,
+          "std": 0.0,
+          "median": 1.0,
+          "min": 1.0,
+          "max": 1.0
+        },
+        "precision": {
+          "mean": 0.0,
+          "std": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "dice_mean": 0.0,
+        "dice_std": 0.0,
+        "dice_median": 0.0,
+        "iou_mean": 0.0
+      }
+    }
+  },
+  "per_case_evaluations": [
+    {
+      "case_key": "case_001",
+      "mri_filename": "BraTS_case_001_T1CE.nii.gz",
+      "seg_filename": "BraTS_case_001_seg.nii.gz",
+      "volume_shape": [
+        48,
+        48,
+        48
+      ],
+      "voxel_spacing_mm": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "inference_duration_sec": 0.02,
+      "total_processing_sec": 0.046,
+      "predicted_label_distribution": {
+        "0": 21436,
+        "1": 21724,
+        "2": 44916,
+        "3": 22516
+      },
+      "mean_dice": 0.0,
+      "mean_iou": 0.0,
+      "subregions": {
+        "WT": {
+          "name": "Whole Tumor",
+          "description": "Necrosis + Edema + Enhancing",
+          "dice": 0.0,
+          "iou": 0.0,
+          "sensitivity": 1.0,
+          "precision": 0.0,
+          "specificity": 0.1938,
+          "tp_voxels": 0,
+          "fp_voxels": 89156,
+          "fn_voxels": 0,
+          "tn_voxels": 21436,
+          "pred_voxel_count": 89156,
+          "target_voxel_count": 0,
+          "pred_volume_cm3": 89.156,
+          "target_volume_cm3": 0.0,
+          "volume_diff_pct": 100.0
+        },
+        "TC": {
+          "name": "Tumor Core",
+          "description": "Necrosis + Enhancing Tumor",
+          "dice": 0.0,
+          "iou": 0.0,
+          "sensitivity": 1.0,
+          "precision": 0.0,
+          "specificity": 0.6,
+          "tp_voxels": 0,
+          "fp_voxels": 44240,
+          "fn_voxels": 0,
+          "tn_voxels": 66352,
+          "pred_voxel_count": 44240,
+          "target_voxel_count": 0,
+          "pred_volume_cm3": 44.24,
+          "target_volume_cm3": 0.0,
+          "volume_diff_pct": 100.0
+        },
+        "ET": {
+          "name": "Enhancing Tumor",
+          "description": "Active Enhancing Rim",
+          "dice": 0.0,
+          "iou": 0.0,
+          "sensitivity": 1.0,
+          "precision": 0.0,
+          "specificity": 0.7964,
+          "tp_voxels": 0,
+          "fp_voxels": 22516,
+          "fn_voxels": 0,
+          "tn_voxels": 88076,
+          "pred_voxel_count": 22516,
+          "target_voxel_count": 0,
+          "pred_volume_cm3": 22.516,
+          "target_volume_cm3": 0.0,
+          "volume_diff_pct": 100.0
+        },
+        "ED": {
+          "name": "Peritumoral Edema",
+          "description": "Fluid Infiltration Margin",
+          "dice": 0.0,
+          "iou": 0.0,
+          "sensitivity": 1.0,
+          "precision": 0.0,
+          "specificity": 0.5939,
+          "tp_voxels": 0,
+          "fp_voxels": 44916,
+          "fn_voxels": 0,
+          "tn_voxels": 65676,
+          "pred_voxel_count": 44916,
+          "target_voxel_count": 0,
+          "pred_volume_cm3": 44.916,
+          "target_volume_cm3": 0.0,
+          "volume_diff_pct": 100.0
+        },
+        "NCR": {
+          "name": "Necrotic Core",
+          "description": "Hypointense Core Component",
+          "dice": 0.0,
+          "iou": 0.0,
+          "sensitivity": 1.0,
+          "precision": 0.0,
+          "specificity": 0.8036,
+          "tp_voxels": 0,
+          "fp_voxels": 21724,
+          "fn_voxels": 0,
+          "tn_voxels": 88868,
+          "pred_voxel_count": 21724,
+          "target_voxel_count": 0,
+          "pred_volume_cm3": 21.724,
+          "target_volume_cm3": 0.0,
+          "volume_diff_pct": 100.0
+        }
+      }
+    }
+  ],
+  "skipped_cases": [],
+  "methodological_notes": [
+    "Full-volume evaluation: Inference is executed across the complete 240x240x155 volume via sliding window blending, not center patch extraction.",
+    "Subregion definitions: Whole Tumor (WT: labels 1+2+3), Tumor Core (TC: labels 1+3), Enhancing Tumor (ET: label 3).",
+    "Small cohort notice: Baseline benchmark reflects engineering pipeline verification on the genuine BraTS development cohort; does not represent prospective clinical trial efficacy."
+  ]
+}

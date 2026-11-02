@@ -1,0 +1,124 @@
+{
+  "experiment_id": "Exp2_Intracranial_BrainMask_Constraint",
+  "validation_patient_id": "BraTS-GLI-00481-000",
+  "inference_wall_time_sec": 48.72,
+  "intracranial_mask": {
+    "total_brain_voxels": 1471923,
+    "bounding_box_voxels": 8928000,
+    "brain_volume_pct": 16.49,
+    "gt_tumor_voxels_total": 148597,
+    "gt_tumor_voxels_excluded": 0,
+    "gt_tumor_preserved_pct": 100.0
+  },
+  "unmasked_candidate_metrics": {
+    "WT": {
+      "dice": 0.1198,
+      "sensitivity": 0.9298,
+      "specificity": 0.7699,
+      "precision": 0.064,
+      "pred_volume_cm3": 2158.377,
+      "gt_volume_cm3": 148.597,
+      "tp_voxels": 138162,
+      "fp_voxels": 2020215,
+      "fn_voxels": 10435,
+      "tn_voxels": 6759188
+    },
+    "TC": {
+      "dice": 0.0425,
+      "sensitivity": 0.4849,
+      "specificity": 0.9012,
+      "precision": 0.0222,
+      "pred_volume_cm3": 897.547,
+      "gt_volume_cm3": 41.129,
+      "tp_voxels": 19944,
+      "fp_voxels": 877603,
+      "fn_voxels": 21185,
+      "tn_voxels": 8009268
+    },
+    "ET": {
+      "dice": 0.0272,
+      "sensitivity": 0.1716,
+      "specificity": 0.9595,
+      "precision": 0.0148,
+      "pred_volume_cm3": 366.056,
+      "gt_volume_cm3": 31.479,
+      "tp_voxels": 5402,
+      "fp_voxels": 360654,
+      "fn_voxels": 26077,
+      "tn_voxels": 8535867
+    },
+    "mean_dice": 0.0632
+  },
+  "masked_candidate_metrics": {
+    "WT": {
+      "dice": 0.268,
+      "sensitivity": 0.9298,
+      "specificity": 0.9152,
+      "precision": 0.1566,
+      "pred_volume_cm3": 882.538,
+      "gt_volume_cm3": 148.597,
+      "tp_voxels": 138162,
+      "fp_voxels": 744376,
+      "fn_voxels": 10435,
+      "tn_voxels": 8035027
+    },
+    "TC": {
+      "dice": 0.0801,
+      "sensitivity": 0.4849,
+      "specificity": 0.9509,
+      "precision": 0.0437,
+      "pred_volume_cm3": 456.582,
+      "gt_volume_cm3": 41.129,
+      "tp_voxels": 19944,
+      "fp_voxels": 436638,
+      "fn_voxels": 21185,
+      "tn_voxels": 8450233
+    },
+    "ET": {
+      "dice": 0.0517,
+      "sensitivity": 0.1716,
+      "specificity": 0.9806,
+      "precision": 0.0304,
+      "pred_volume_cm3": 177.629,
+      "gt_volume_cm3": 31.479,
+      "tp_voxels": 5402,
+      "fp_voxels": 172227,
+      "fn_voxels": 26077,
+      "tn_voxels": 8724294
+    },
+    "mean_dice": 0.1333
+  },
+  "deltas": {
+    "WT_fp_reduction_voxels": 1275839,
+    "WT_fp_reduction_pct": 63.15,
+    "WT_dice_delta": 0.1482,
+    "WT_dice_pct_change": 123.71,
+    "WT_recall_delta": 0.0,
+    "WT_precision_delta": 0.0926,
+    "WT_pred_volume_cm3_delta": -1275.839,
+    "TC_dice_delta": 0.0376,
+    "TC_fp_reduction_voxels": 440965,
+    "ET_dice_delta": 0.0245,
+    "ET_fp_reduction_voxels": 188427,
+    "mean_dice_delta": 0.0701
+  },
+  "success_criteria_audit": {
+    "criterion_1_fp_reduction_ge_15pct": {
+      "threshold": 15.0,
+      "observed": 63.15,
+      "passed": true
+    },
+    "criterion_2_wt_dice_ge_0_1500": {
+      "threshold": 0.15,
+      "observed": 0.268,
+      "passed": true
+    },
+    "criterion_3_recall_ge_90pct": {
+      "threshold": 0.9,
+      "observed": 0.9298,
+      "passed": true
+    },
+    "stopping_condition_triggered": false,
+    "final_verdict": "SUPPORTED"
+  }
+}

@@ -1,0 +1,184 @@
+{
+  "generated_figures": [
+    {
+      "case_key": "case_001",
+      "view": "axial_positive",
+      "plane": "Axial (Z)",
+      "slice_index": 74,
+      "geometry": [
+        240,
+        240
+      ],
+      "file_path": "reports\\figures\\case_001_axial_positive_slice_74.png",
+      "gt_tumor_voxels": 1978,
+      "pred_tumor_voxels": 8962,
+      "false_positive_voxels": 7816,
+      "false_negative_voxels": 832
+    },
+    {
+      "case_key": "case_001",
+      "view": "axial_negative",
+      "plane": "Axial (Z)",
+      "slice_index": 104,
+      "geometry": [
+        240,
+        240
+      ],
+      "file_path": "reports\\figures\\case_001_axial_negative_slice_104.png",
+      "gt_tumor_voxels": 0,
+      "pred_tumor_voxels": 6908,
+      "false_positive_voxels": 6908,
+      "false_negative_voxels": 0
+    },
+    {
+      "case_key": "case_001",
+      "view": "coronal_positive",
+      "plane": "Coronal (Y)",
+      "slice_index": 151,
+      "geometry": [
+        240,
+        155
+      ],
+      "file_path": "reports\\figures\\case_001_coronal_positive_slice_151.png",
+      "gt_tumor_voxels": 1403,
+      "pred_tumor_voxels": 4871,
+      "false_positive_voxels": 4110,
+      "false_negative_voxels": 642
+    },
+    {
+      "case_key": "case_001",
+      "view": "coronal_negative",
+      "plane": "Coronal (Y)",
+      "slice_index": 84,
+      "geometry": [
+        240,
+        155
+      ],
+      "file_path": "reports\\figures\\case_001_coronal_negative_slice_84.png",
+      "gt_tumor_voxels": 0,
+      "pred_tumor_voxels": 6087,
+      "false_positive_voxels": 6087,
+      "false_negative_voxels": 0
+    },
+    {
+      "case_key": "case_001",
+      "view": "sagittal_positive",
+      "plane": "Sagittal (X)",
+      "slice_index": 104,
+      "geometry": [
+        240,
+        155
+      ],
+      "file_path": "reports\\figures\\case_001_sagittal_positive_slice_104.png",
+      "gt_tumor_voxels": 2103,
+      "pred_tumor_voxels": 6431,
+      "false_positive_voxels": 5483,
+      "false_negative_voxels": 1155
+    },
+    {
+      "case_key": "case_001",
+      "view": "sagittal_negative",
+      "plane": "Sagittal (X)",
+      "slice_index": 141,
+      "geometry": [
+        240,
+        155
+      ],
+      "file_path": "reports\\figures\\case_001_sagittal_negative_slice_141.png",
+      "gt_tumor_voxels": 0,
+      "pred_tumor_voxels": 7251,
+      "false_positive_voxels": 7251,
+      "false_negative_voxels": 0
+    },
+    {
+      "case_key": "case_002",
+      "view": "axial_positive",
+      "plane": "Axial (Z)",
+      "slice_index": 78,
+      "geometry": [
+        240,
+        240
+      ],
+      "file_path": "reports\\figures\\case_002_axial_positive_slice_78.png",
+      "gt_tumor_voxels": 5220,
+      "pred_tumor_voxels": 9181,
+      "false_positive_voxels": 6669,
+      "false_negative_voxels": 2708
+    },
+    {
+      "case_key": "case_002",
+      "view": "axial_negative",
+      "plane": "Axial (Z)",
+      "slice_index": 125,
+      "geometry": [
+        240,
+        240
+      ],
+      "file_path": "reports\\figures\\case_002_axial_negative_slice_125.png",
+      "gt_tumor_voxels": 0,
+      "pred_tumor_voxels": 4525,
+      "false_positive_voxels": 4525,
+      "false_negative_voxels": 0
+    },
+    {
+      "case_key": "case_002",
+      "view": "coronal_positive",
+      "plane": "Coronal (Y)",
+      "slice_index": 139,
+      "geometry": [
+        240,
+        155
+      ],
+      "file_path": "reports\\figures\\case_002_coronal_positive_slice_139.png",
+      "gt_tumor_voxels": 3520,
+      "pred_tumor_voxels": 6024,
+      "false_positive_voxels": 4119,
+      "false_negative_voxels": 1615
+    },
+    {
+      "case_key": "case_002",
+      "view": "coronal_negative",
+      "plane": "Coronal (Y)",
+      "slice_index": 71,
+      "geometry": [
+        240,
+        155
+      ],
+      "file_path": "reports\\figures\\case_002_coronal_negative_slice_71.png",
+      "gt_tumor_voxels": 0,
+      "pred_tumor_voxels": 6034,
+      "false_positive_voxels": 6034,
+      "false_negative_voxels": 0
+    },
+    {
+      "case_key": "case_002",
+      "view": "sagittal_positive",
+      "plane": "Sagittal (X)",
+      "slice_index": 94,
+      "geometry": [
+        240,
+        155
+      ],
+      "file_path": "reports\\figures\\case_002_sagittal_positive_slice_94.png",
+      "gt_tumor_voxels": 4407,
+      "pred_tumor_voxels": 6138,
+      "false_positive_voxels": 4252,
+      "false_negative_voxels": 2521
+    },
+    {
+      "case_key": "case_002",
+      "view": "sagittal_negative",
+      "plane": "Sagittal (X)",
+      "slice_index": 156,
+      "geometry": [
+        240,
+        155
+      ],
+      "file_path": "reports\\figures\\case_002_sagittal_negative_slice_156.png",
+      "gt_tumor_voxels": 0,
+      "pred_tumor_voxels": 4995,
+      "false_positive_voxels": 4995,
+      "false_negative_voxels": 0
+    }
+  ]
+}

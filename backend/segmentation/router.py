@@ -293,14 +293,17 @@ async def predict_segmentation(
         else:
             # 2. Preprocess & Run real model inference
             t_start = time.perf_counter()
-            input_tensor = preprocess_volume_for_model(mri_vol, target_channels=4)
+            in_ch = getattr(seg_model, "in_channels", 4)
+            input_tensor = preprocess_volume_for_model(mri_vol, target_channels=in_ch)
+            brain_mask = (mri_vol.data[0] > 0)
 
             pred_mask = run_sliding_window_inference(
                 model=seg_model,
                 inputs=input_tensor,
                 roi_size=(64, 64, 64),
                 overlap=0.5,
-                device=device
+                device=device,
+                brain_mask=brain_mask
             )
             inference_time_ms = round((time.perf_counter() - t_start) * 1000, 2)
             inference_status = "completed"

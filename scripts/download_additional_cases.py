@@ -1,15 +1,14 @@
 import os
+import sys
 import shutil
 from pathlib import Path
-from huggingface_hub import hf_hub_download
-from huggingface_hub.utils import EntryNotFoundError
-import nibabel as nib
-import numpy as np
 
-DEST_DIR = Path("backend/segmentation/data")
-DEST_DIR.mkdir(parents=True, exist_ok=True)
-
-REPO_ID = "MedOtter/brats2023-gli-dataset"
+# BLOCKED: Third-party unverified mirrors (Hugging Face MedOtter) are prohibited.
+# Acquisition must strictly proceed via official Synapse project syn51156910 under BraTS DUA.
+raise RuntimeError(
+    "[BLOCKED] Direct download from unverified third-party mirror 'MedOtter/brats2023-gli-dataset' is disabled. "
+    "Use official acquisition script: python scripts/acquire_brats_pilot.py with valid SYNAPSE_AUTH_TOKEN."
+)
 
 # We already have:
 # Case 1: BraTS-GLI-00000-000 (BraTS_Case_001)

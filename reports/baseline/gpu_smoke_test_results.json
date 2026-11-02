@@ -1,0 +1,24 @@
+{
+  "status": "PASSED",
+  "device_name": "NVIDIA GeForce RTX 4050 Laptop GPU",
+  "total_vram_mb": 6140.5,
+  "peak_reserved_vram_mb": 180.0,
+  "peak_vram_percentage": 2.93,
+  "system_ram_used_gb": 13.85,
+  "fp32_loss": 2.6144,
+  "fp32_total_grad_norm": 2.5389,
+  "fp32_step_time_ms": 797.3,
+  "amp_numerically_stable": true,
+  "amp_loss": 2.5769,
+  "amp_step_time_ms": 508.3,
+  "checkpoint_roundtrip_verified": true,
+  "sample_patient_id": "BraTS-GLI-00324-000",
+  "patch_size": [
+    48,
+    48,
+    48
+  ],
+  "batch_size": 1,
+  "num_workers": 0,
+  "safe_for_pilot_training": true
+}
