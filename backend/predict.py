@@ -1,24 +1,51 @@
 import time, io, base64
+from pathlib import Path
+import sys
 from PIL import Image
 import torch
 import torch.nn.functional as F
 from torchvision import transforms
 
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
 IMG_SIZE = 224
 
-transform = transforms.Compose([
+# Fallback standard transforms
+standard_transform = transforms.Compose([
     transforms.Resize((IMG_SIZE, IMG_SIZE)),
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.485, 0.456, 0.406],
                          std=[0.229, 0.224, 0.225])
 ])
 
+# Clinical transforms with Otsu skull-stripping
+try:
+    from pipelines.clinical_pipeline import get_clinical_transforms
+    clinical_transform = get_clinical_transforms()
+except Exception as e:
+    clinical_transform = None
+
+def get_target_gradcam_layer(model):
+    """Returns the final convolutional block for Grad-CAM explainability."""
+    if hasattr(model, "backbone") and hasattr(model.backbone, "layer4"):
+        return model.backbone.layer4[-1]
+    if hasattr(model, "features") and len(model.features) > 9:
+        return model.features[9]
+    return None
+
 def generate_gradcam(model, tensor, target_class_idx):
     """
-    Computes Grad-CAM for the last convolutional layer (features[9]).
-    Returns heatmap base64 and blended overlay base64.
+    Computes Grad-CAM for the last convolutional layer.
+    Supports both Clinical ResNet-50 (backbone.layer4[-1]) and legacy CNN (features[9]).
+    Returns heatmap base64.
     """
     try:
+        target_layer = get_target_gradcam_layer(model)
+        if target_layer is None:
+            return False, None
+
         model.eval()
         features = []
         grads = []
@@ -29,7 +56,6 @@ def generate_gradcam(model, tensor, target_class_idx):
         def bwd_hook(module, grad_in, grad_out):
             grads.append(grad_out[0])
 
-        target_layer = model.features[9]
         h_f = target_layer.register_forward_hook(fwd_hook)
         h_b = target_layer.register_full_backward_hook(bwd_hook)
 
@@ -42,8 +68,8 @@ def generate_gradcam(model, tensor, target_class_idx):
         h_f.remove()
         h_b.remove()
 
-        feature_map = features[0][0]  # (256, H, W)
-        gradients = grads[0][0]        # (256, H, W)
+        feature_map = features[0][0]  # (C, H, W)
+        gradients = grads[0][0]        # (C, H, W)
 
         weights = gradients.mean(dim=(1, 2), keepdim=True)
         cam = (weights * feature_map).sum(dim=0)
@@ -90,11 +116,17 @@ def generate_gradcam(model, tensor, target_class_idx):
 def predict_image(image_path, model, classes, device):
     start_time = time.perf_counter()
     image = Image.open(image_path).convert("RGB")
-    tensor = transform(image).unsqueeze(0).to(device)
 
+    # Select transform based on model architecture
+    if hasattr(model, "backbone") and clinical_transform is not None:
+        tensor = clinical_transform(image).unsqueeze(0).to(device)
+    else:
+        tensor = standard_transform(image).unsqueeze(0).to(device)
+
+    temp = getattr(model, "temperature", 1.0)
     with torch.no_grad():
         output = model(tensor)
-        probs = F.softmax(output, dim=1).squeeze(0)
+        probs = F.softmax(output / temp, dim=1).squeeze(0)
 
     confidence, pred = torch.max(probs, dim=0)
     pred_idx = pred.item()

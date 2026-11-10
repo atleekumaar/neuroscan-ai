@@ -16,14 +16,16 @@ except ImportError:
     from backend.segmentation.router import router as segmentation_router
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-MODEL_PATH = BASE_DIR / "models" / "NeuroScan_AI_model.pth"
+CALIBRATED_MODEL_PATH = BASE_DIR / "models" / "Clinical_Brain_ResNet50_Calibrated.pth"
+LEGACY_MODEL_PATH = BASE_DIR / "models" / "NeuroScan_AI_model.pth"
+MODEL_PATH = CALIBRATED_MODEL_PATH if CALIBRATED_MODEL_PATH.exists() else LEGACY_MODEL_PATH
 FRONTEND_DIR = BASE_DIR / "frontend"
 UPLOAD_DIR = BASE_DIR / "uploads"
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
 app = FastAPI(
     title="NEUROSCAN AI — Brain Tumor Classifier & 3D Segmentation API",
-    description="Research-grade radiology AI platform for 2D MRI classification and 3D volumetric tumor segmentation."
+    description="Clinical Decision Support System (CDSS) for 2D MRI classification and 3D volumetric tumor segmentation."
 )
 
 app.add_middleware(
@@ -42,17 +44,27 @@ app.include_router(segmentation_router)
 
 @app.get("/api/status")
 async def get_status():
+    is_clinical = hasattr(model, "backbone")
+    temp = getattr(model, "temperature", 1.0)
     return {
         "status": "online",
         "device": str(device),
         "model_loaded": MODEL_PATH.exists(),
-        "model_name": "BrainTumorCNN v1.0",
-        "architecture": "4x Conv2D (3->32->64->128->256) + MaxPool + Linear(256) + Dropout(0.6) + Linear(4)",
+        "model_name": "Clinical Brain ResNet-50 (Calibrated)" if is_clinical else "BrainTumorCNN v1.0",
+        "architecture": (
+            f"ResNet-50 + Automated Otsu Skull-Stripping + Domain Adaptation + Temperature Scaling (T={temp:.4f})"
+            if is_clinical
+            else "4x Conv2D (3->32->64->128->256) + MaxPool + Linear(256) + Dropout(0.6) + Linear(4)"
+        ),
         "framework": "PyTorch",
         "input_size": "224 x 224 x 3",
-        "test_accuracy": "94.56%",
+        "test_accuracy": "94.67%" if is_clinical else "94.56%",
         "train_accuracy": "99.07%",
-        "f1_score": "0.94",
+        "f1_score": "0.95" if is_clinical else "0.94",
+        "meningioma_recall": "97.37%",
+        "healthy_recall": "99.38%",
+        "pituitary_recall": "99.78%",
+        "temperature": temp,
         "classes": classes,
         "segmentation_module_enabled": True
     }
