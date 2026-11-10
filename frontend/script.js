@@ -7,7 +7,7 @@
   "use strict";
 
   // Dynamic API Base Resolver with Render Cloud Support
-  const DEFAULT_RENDER_URL = "https://neuroscan-ai-backend.onrender.com";
+  const DEFAULT_RENDER_URL = "https://neuroscan-ai-backend-nsvg.onrender.com";
   const savedBackendUrl = localStorage.getItem("neuroscan_backend_url");
   const isLocalHost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
 
@@ -1609,7 +1609,7 @@
       })
       .catch(err => {
         if (segDom.loadingOverlay) segDom.loadingOverlay.style.display = "none";
-        const msg = err.detail || err.error || (err.message ? `Backend connection error (${err.message}). Is http://127.0.0.1:8000 running?` : "Inference failed");
+        const msg = err.detail || err.error || (err.message ? `Backend connection error (${err.message}). Is ${API_BASE} running?` : "Inference failed");
         showToast(`Segmentation error: ${msg}`, "error");
         if (segDom.emptyOverlay) {
           segDom.emptyOverlay.style.display = "flex";
