@@ -1,6 +1,7 @@
 import time, io, base64
 from pathlib import Path
 import sys
+import numpy as np
 from PIL import Image
 import torch
 import torch.nn.functional as F
@@ -37,9 +38,8 @@ def get_target_gradcam_layer(model):
 
 def generate_gradcam(model, tensor, target_class_idx):
     """
-    Computes Grad-CAM for the last convolutional layer.
-    Supports both Clinical ResNet-50 (backbone.layer4[-1]) and legacy CNN (features[9]).
-    Returns heatmap base64.
+    Computes lightweight, memory-efficient Grad-CAM for the last convolutional layer.
+    Uses localized autograd wrt target feature map to prevent memory spikes in 512MB environments.
     """
     try:
         target_layer = get_target_gradcam_layer(model)
@@ -47,31 +47,27 @@ def generate_gradcam(model, tensor, target_class_idx):
             return False, None
 
         model.eval()
-        features = []
-        grads = []
+        feat = None
 
         def fwd_hook(module, inp, out):
-            features.append(out)
+            nonlocal feat
+            feat = out
 
-        def bwd_hook(module, grad_in, grad_out):
-            grads.append(grad_out[0])
+        hook = target_layer.register_forward_hook(fwd_hook)
+        tensor_input = tensor.clone().detach()
+        out = model(tensor_input)
+        hook.remove()
 
-        h_f = target_layer.register_forward_hook(fwd_hook)
-        h_b = target_layer.register_full_backward_hook(bwd_hook)
+        if feat is None:
+            return False, None
 
-        tensor_req = tensor.clone().detach().requires_grad_(True)
-        out = model(tensor_req)
+        score = out[0, target_class_idx]
+        gradients = torch.autograd.grad(score, feat, retain_graph=False)[0]
 
-        model.zero_grad()
-        out[0, target_class_idx].backward()
+        feature_map = feat[0]       # (C, H, W)
+        grad_map = gradients[0]     # (C, H, W)
 
-        h_f.remove()
-        h_b.remove()
-
-        feature_map = features[0][0]  # (C, H, W)
-        gradients = grads[0][0]        # (C, H, W)
-
-        weights = gradients.mean(dim=(1, 2), keepdim=True)
+        weights = grad_map.mean(dim=(1, 2), keepdim=True)
         cam = (weights * feature_map).sum(dim=0)
         cam = torch.relu(cam)
 
@@ -84,26 +80,35 @@ def generate_gradcam(model, tensor, target_class_idx):
         cam_pil = Image.fromarray((cam_np * 255).astype('uint8'), mode='L')
         cam_resized = cam_pil.resize((IMG_SIZE, IMG_SIZE), Image.Resampling.BILINEAR)
 
-        # Create Turbo/Plasma style colormap manually with PIL
-        heatmap_img = Image.new("RGBA", (IMG_SIZE, IMG_SIZE))
-        heatmap_pixels = heatmap_img.load()
-        cam_data = cam_resized.load()
+        # Vectorized color mapping for extreme speed and low RAM
+        cam_data = np.array(cam_resized, dtype=np.float32) / 255.0
+        h, w = cam_data.shape
+        rgba = np.zeros((h, w, 4), dtype=np.uint8)
 
-        for y in range(IMG_SIZE):
-            for x in range(IMG_SIZE):
-                val = cam_data[x, y] / 255.0
-                # Cyan (#39D5FF) to Purple (#7C6CFF) to Red/Yellow activation
-                if val < 0.2:
-                    r, g, b, a = int(val * 50), int(val * 100), int(150 + val * 500), int(val * 180)
-                elif val < 0.6:
-                    t = (val - 0.2) / 0.4
-                    r, g, b, a = int(57 + t * 67), int(213 - t * 105), int(255), 180
-                else:
-                    t = (val - 0.6) / 0.4
-                    r, g, b, a = int(124 + t * 131), int(108 - t * 50), int(255 - t * 150), 220
-                heatmap_pixels[x, y] = (r, g, b, a)
+        # Region 1: < 0.2
+        m1 = cam_data < 0.2
+        rgba[m1, 0] = (cam_data[m1] * 50).astype(np.uint8)
+        rgba[m1, 1] = (cam_data[m1] * 100).astype(np.uint8)
+        rgba[m1, 2] = np.clip(150 + cam_data[m1] * 500, 0, 255).astype(np.uint8)
+        rgba[m1, 3] = (cam_data[m1] * 180).astype(np.uint8)
 
-        # Buffer heatmap
+        # Region 2: 0.2 <= val < 0.6
+        m2 = (cam_data >= 0.2) & (cam_data < 0.6)
+        t2 = (cam_data[m2] - 0.2) / 0.4
+        rgba[m2, 0] = (57 + t2 * 67).astype(np.uint8)
+        rgba[m2, 1] = (213 - t2 * 105).astype(np.uint8)
+        rgba[m2, 2] = 255
+        rgba[m2, 3] = 180
+
+        # Region 3: >= 0.6
+        m3 = cam_data >= 0.6
+        t3 = (cam_data[m3] - 0.6) / 0.4
+        rgba[m3, 0] = np.clip(124 + t3 * 131, 0, 255).astype(np.uint8)
+        rgba[m3, 1] = np.clip(108 - t3 * 50, 0, 255).astype(np.uint8)
+        rgba[m3, 2] = np.clip(255 - t3 * 150, 0, 255).astype(np.uint8)
+        rgba[m3, 3] = 220
+
+        heatmap_img = Image.fromarray(rgba, mode="RGBA")
         buf_hm = io.BytesIO()
         heatmap_img.save(buf_hm, format="PNG")
         heatmap_b64 = "data:image/png;base64," + base64.b64encode(buf_hm.getvalue()).decode("utf-8")
