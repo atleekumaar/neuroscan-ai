@@ -6,7 +6,10 @@
 (function () {
   "use strict";
 
-  const API_BASE = window.location.origin.includes("http") ? window.location.origin : "http://127.0.0.1:8000";
+  const isDevNonBackendPort = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") && window.location.port !== "8000";
+  const API_BASE = isDevNonBackendPort
+    ? "http://127.0.0.1:8000"
+    : (window.location.origin && window.location.origin.includes("http") ? window.location.origin : "http://127.0.0.1:8000");
 
   // 4 Core Model Classes Metadata (Matching PyTorch model)
   const CLASS_META = {
@@ -1577,7 +1580,7 @@
       })
       .catch(err => {
         if (segDom.loadingOverlay) segDom.loadingOverlay.style.display = "none";
-        const msg = err.detail || err.error || "Inference failed";
+        const msg = err.detail || err.error || (err.message ? `Backend connection error (${err.message}). Is http://127.0.0.1:8000 running?` : "Inference failed");
         showToast(`Segmentation error: ${msg}`, "error");
         if (segDom.emptyOverlay) {
           segDom.emptyOverlay.style.display = "flex";

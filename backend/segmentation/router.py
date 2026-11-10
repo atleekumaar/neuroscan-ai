@@ -47,8 +47,9 @@ SAMPLE_DATA_DIR = BASE_DIR / "backend" / "segmentation" / "data"
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 seg_model, is_seg_model_loaded, seg_meta = load_segmentation_model(str(SEG_MODEL_PATH), device)
 
-# Initialize sample benchmark dataset suite
+# Initialize sample benchmark dataset suite and preset response cache
 sample_manifest = create_benchmark_sample_suite(SAMPLE_DATA_DIR)
+PRESET_PREDICTION_CACHE: Dict[str, Dict[str, Any]] = {}
 
 
 def find_case_in_manifest(case_key: Optional[str]) -> Optional[Dict[str, Any]]:
@@ -215,6 +216,11 @@ async def predict_segmentation(
     try:
         study_meta = find_case_in_manifest(sample_key)
         if study_meta is not None:
+            # Check fast in-memory cache for presets
+            cache_key = study_meta.get("id", sample_key)
+            if cache_key in PRESET_PREDICTION_CACHE:
+                return PRESET_PREDICTION_CACHE[cache_key]
+
             # Using authenticated preset benchmark
             mri_path = Path(study_meta["mri_path"])
             gt_path = Path(study_meta["gt_path"]) if study_meta.get("has_ground_truth") else None
@@ -413,7 +419,7 @@ async def predict_segmentation(
         attribution = study_meta.get("dataset_name", "Research Study") if (sample_key and sample_key in sample_manifest) else "Uploaded Study"
         license_str = study_meta.get("license", "CC BY-SA 4.0") if (sample_key and sample_key in sample_manifest) else "Research Use Only"
 
-        return {
+        res_payload = {
             "status": "success",
             "inference_status": inference_status,
             "patient_study_id": patient_tag,
@@ -449,6 +455,14 @@ async def predict_segmentation(
             "ground_truth_mesh_3d": gt_meshes,
             "prediction_mesh_3d": pred_meshes
         }
+
+        if study_meta is not None:
+            cache_key = study_meta.get("id", sample_key)
+            PRESET_PREDICTION_CACHE[cache_key] = res_payload
+            if sample_key:
+                PRESET_PREDICTION_CACHE[sample_key] = res_payload
+
+        return res_payload
 
     finally:
         # Resource cleanup
