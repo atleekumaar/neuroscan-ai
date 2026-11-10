@@ -43,9 +43,21 @@ TEMP_UPLOAD_DIR = BASE_DIR / "uploads" / "segmentation_temp"
 TEMP_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 SAMPLE_DATA_DIR = BASE_DIR / "backend" / "segmentation" / "data"
 
-# Global device and model holder
+# Global device and model holder (lazy-loaded on demand to stay strictly within 512MB container limits)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-seg_model, is_seg_model_loaded, seg_meta = load_segmentation_model(str(SEG_MODEL_PATH), device)
+seg_model = None
+is_seg_model_loaded = False
+seg_meta = None
+
+def get_seg_model():
+    """Lazily loads 3D U-Net weights on first actual inference call to conserve memory."""
+    global seg_model, is_seg_model_loaded, seg_meta
+    if seg_model is None:
+        import gc
+        gc.collect()
+        seg_model, is_seg_model_loaded, seg_meta = load_segmentation_model(str(SEG_MODEL_PATH), device)
+        gc.collect()
+    return seg_model, is_seg_model_loaded, seg_meta
 
 # Initialize sample benchmark dataset suite and preset response cache
 sample_manifest = create_benchmark_sample_suite(SAMPLE_DATA_DIR)
@@ -66,35 +78,34 @@ def find_case_in_manifest(case_key: Optional[str]) -> Optional[Dict[str, Any]]:
 
 
 def refresh_segmentation_model():
-    """Reloads or checks model status if weights were updated."""
-    global seg_model, is_seg_model_loaded, seg_meta
-    seg_model, is_seg_model_loaded, seg_meta = load_segmentation_model(str(SEG_MODEL_PATH), device)
+    """Checks whether model weights exist on disk."""
+    return SEG_MODEL_PATH.exists()
 
 
 @router.get("/status")
 async def get_segmentation_status():
     """
     Returns real-time status of the volumetric segmentation engine.
-    Strictly verifies whether real weights are present on disk.
+    Strictly verifies whether real weights are present on disk without triggering OOM.
     """
-    refresh_segmentation_model()
+    model_exists = SEG_MODEL_PATH.exists()
     return {
-        "status": "ready" if is_seg_model_loaded else "checkpoint_unavailable",
+        "status": "ready" if model_exists else "checkpoint_unavailable",
         "pipeline_initialized": True,
         "device": str(device),
         "cuda_available": torch.cuda.is_available(),
         "monai_installed": MONAI_AVAILABLE,
-        "model_loaded": is_seg_model_loaded,
+        "model_loaded": model_exists,
         "checkpoint_path": str(SEG_MODEL_PATH.name),
-        "checkpoint_exists": SEG_MODEL_PATH.exists(),
+        "checkpoint_exists": model_exists,
         "architecture": "3D U-Net (BraTS Multi-Parametric Benchmark)",
         "input_formats": [".nii", ".nii.gz"],
         "expected_modalities": ["T1", "T1-CE", "T2", "FLAIR"],
         "subregions": ["Whole Tumor (WT)", "Tumor Core (TC)", "Enhancing Tumor (ET)"],
         "labels": LABEL_DEFINITIONS,
         "status_message": (
-            "3D U-Net weights loaded and ready for volumetric inference."
-            if is_seg_model_loaded
+            "3D U-Net weights verified and ready for volumetric inference."
+            if model_exists
             else "Segmentation architecture and data pipeline are operational. A trained checkpoint (NeuroScan_Seg3D_UNet.pth) must be placed in models/ before inference can be executed."
         )
     }
@@ -270,8 +281,9 @@ async def predict_segmentation(
             except Exception as e:
                 print(f"[WARNING] Could not parse ground truth NIfTI: {e}")
 
-        # Check if model checkpoint is loaded
-        if not is_seg_model_loaded:
+        # Check if model checkpoint is loaded (lazy-load)
+        active_seg_model, model_loaded, _ = get_seg_model()
+        if not model_loaded:
             # As per requirement:
             # "If no valid dataset or trained segmentation checkpoint is available,
             # implement the architecture, data pipeline and interface, but clearly mark
@@ -299,12 +311,12 @@ async def predict_segmentation(
         else:
             # 2. Preprocess & Run real model inference
             t_start = time.perf_counter()
-            in_ch = getattr(seg_model, "in_channels", 4)
+            in_ch = getattr(active_seg_model, "in_channels", 4)
             input_tensor = preprocess_volume_for_model(mri_vol, target_channels=in_ch)
             brain_mask = (mri_vol.data[0] > 0)
 
             pred_mask = run_sliding_window_inference(
-                model=seg_model,
+                model=active_seg_model,
                 inputs=input_tensor,
                 roi_size=(64, 64, 64),
                 overlap=0.5,

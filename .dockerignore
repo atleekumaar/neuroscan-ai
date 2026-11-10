@@ -1,0 +1,17 @@
+.git
+.github
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache
+.vscode
+.idea
+venv/
+env/
+.env
+uploads/
+tests/
+docs/
+*.md
+models/NeuroScan_Seg3D_UNet_*

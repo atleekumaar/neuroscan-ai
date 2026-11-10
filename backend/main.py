@@ -1,6 +1,10 @@
 from pathlib import Path
-import os, shutil, uuid
+import os, shutil, uuid, gc
 import torch
+
+# Limit PyTorch CPU thread pools to stay comfortably inside 512MB RAM cloud tiers
+torch.set_num_threads(int(os.environ.get("TORCH_NUM_THREADS", "2")))
+
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -37,6 +41,7 @@ app.add_middleware(
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model, classes = load_model(str(MODEL_PATH), device)
+gc.collect()
 print(f"[INFO] Classification model running on device: {device} with classes: {classes}")
 
 # Mount 3D Volumetric Segmentation API
