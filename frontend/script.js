@@ -6,10 +6,20 @@
 (function () {
   "use strict";
 
-  const isDevNonBackendPort = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") && window.location.port !== "8000";
-  const API_BASE = isDevNonBackendPort
-    ? "http://127.0.0.1:8000"
-    : (window.location.origin && window.location.origin.includes("http") ? window.location.origin : "http://127.0.0.1:8000");
+  // Dynamic API Base Resolver with Render Cloud Support
+  const DEFAULT_RENDER_URL = "https://neuroscan-ai-backend.onrender.com";
+  const savedBackendUrl = localStorage.getItem("neuroscan_backend_url");
+  const isLocalHost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+
+  let API_BASE;
+  if (savedBackendUrl) {
+    API_BASE = savedBackendUrl.replace(/\/$/, "");
+  } else if (isLocalHost) {
+    API_BASE = "http://127.0.0.1:8000";
+  } else {
+    // If hosted on Vercel or external domain, route AI inference to Render backend
+    API_BASE = DEFAULT_RENDER_URL;
+  }
 
   // 4 Core Model Classes Metadata (Matching PyTorch model)
   const CLASS_META = {
@@ -359,6 +369,25 @@
       if (dom.systemStatusText) dom.systemStatusText.textContent = "STANDALONE MODE";
       if (dom.latencyChip) dom.latencyChip.textContent = "Local";
     }
+  }
+
+  // Allow clicking on system status badge to check or customize Backend API URL
+  const statusBadgeEl = document.querySelector(".system-status-badge");
+  if (statusBadgeEl) {
+    statusBadgeEl.style.cursor = "pointer";
+    statusBadgeEl.title = `Current Backend: ${API_BASE} (Click to configure)`;
+    statusBadgeEl.addEventListener("click", () => {
+      const current = localStorage.getItem("neuroscan_backend_url") || API_BASE;
+      const input = prompt("Backend API URL:\n(Leave empty to reset to default Render cloud URL)", current);
+      if (input !== null) {
+        if (input.trim()) {
+          localStorage.setItem("neuroscan_backend_url", input.trim().replace(/\/$/, ""));
+        } else {
+          localStorage.removeItem("neuroscan_backend_url");
+        }
+        window.location.reload();
+      }
+    });
   }
 
   // =========================================================================
